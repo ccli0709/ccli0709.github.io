@@ -21,7 +21,7 @@ module.exports = module.exports.toString();
 /***/ 139:
 /***/ (function(module, exports) {
 
-module.exports = "<h1>\n  {{title}}\n</h1>\n"
+module.exports = "<!-- Page Heading -->\n<div class=\"row\">\n  <div class=\"col-lg-12\">\n    <h1 class=\"page-header\">{{title}}\n                <small>{{subTitle}}</small>\n            </h1>\n  </div>\n</div>\n<!-- /.row -->\n\n<!-- Projects Row -->\n<div class=\"row\">\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n</div>\n<!-- /.row -->\n\n<!-- Projects Row -->\n<div class=\"row\">\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n</div>\n<!-- /.row -->\n\n<!-- Projects Row -->\n<div class=\"row\">\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n  <div class=\"col-md-3 portfolio-item\">\n    <a href=\"#\">\n      <img class=\"img-responsive\" src=\"http://placehold.it/750x450\" alt=\"\">\n    </a>\n  </div>\n</div>\n<!-- /.row -->\n\n<hr>\n\n<!-- Pagination -->\n<div class=\"row text-center\">\n  <div class=\"col-lg-12\">\n    <ul class=\"pagination\">\n      <li>\n        <a href=\"#\">&laquo;</a>\n      </li>\n      <li class=\"active\">\n        <a href=\"#\">1</a>\n      </li>\n      <li>\n        <a href=\"#\">2</a>\n      </li>\n      <li>\n        <a href=\"#\">3</a>\n      </li>\n      <li>\n        <a href=\"#\">4</a>\n      </li>\n      <li>\n        <a href=\"#\">5</a>\n      </li>\n      <li>\n        <a href=\"#\">&raquo;</a>\n      </li>\n    </ul>\n  </div>\n</div>\n<!-- /.row -->\n"
 
 /***/ }),
 
@@ -83,7 +83,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'app works!';
+        this.title = '首頁';
+        this.subTitle = '程式練習結果';
     }
     return AppComponent;
 }());
