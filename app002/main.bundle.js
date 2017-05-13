@@ -96,7 +96,7 @@ module.exports = "<p>\n  heroes works!\n</p>\n"
 /***/ 161:
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  root works!\n</p>\n"
+module.exports = "<!-- Sidebar -->\n<div id=\"sidebar-wrapper\">\n  <ul class=\"sidebar-nav\">\n    <li class=\"sidebar-brand\">\n      <a href=\"#\">\n                英雄聯盟\n            </a>\n    </li>\n    <li>\n      <a routerLink=\"/dashboard\">排行榜</a>\n    </li>\n    <li>\n      <a routerLink=\"/heroes\">所有英雄</a>\n    </li>\n  </ul>\n</div>\n<!-- /#sidebar-wrapper -->\n\n<!-- Page Content -->\n<div id=\"page-content-wrapper\">\n  <div class=\"container-fluid\">\n    <router-outlet></router-outlet>\n  </div>\n</div>\n<!-- /#page-content-wrapper -->\n"
 
 /***/ }),
 
@@ -191,6 +191,13 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
             __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* RouterModule */].forRoot([
                 {
+                    path: '',
+                    redirectTo: '/dashboard',
+                    pathMatch: 'full'
+                }, {
+                    path: 'dashboard',
+                    component: __WEBPACK_IMPORTED_MODULE_6__dashboard_dashboard_component__["a" /* DashboardComponent */]
+                }, {
                     path: 'heroes',
                     component: __WEBPACK_IMPORTED_MODULE_7__heroes_heroes_component__["a" /* HeroesComponent */]
                 }
