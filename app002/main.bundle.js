@@ -89,7 +89,7 @@ module.exports = "<p>\n  hero-detail works!\n</p>\n"
 /***/ 160:
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  heroes works!\n</p>\n"
+module.exports = "<div class=\"row\">\n\n  <div class=\"col-sm-12\">\n\n    <h2>所有英雄</h2>\n    <table class=\"table table-striped\">\n      <thead>\n        <tr>\n          <th>編號</th>\n          <th>姓名</th>\n          <th>HP</th>\n          <th>MP</th>\n          <th>STR</th>\n          <th>INT</th>\n          <th>AGI</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let hero of heroes\" (click)=\"onSelect(hero)\">\n          <td>{{hero.id}}</td>\n          <td>{{hero.name}}</td>\n          <td>{{hero.hp}}</td>\n          <td>{{hero.mp}}</td>\n          <td>{{hero.str}}</td>\n          <td>{{hero.int}}</td>\n          <td>{{hero.agi}}</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-sm-12\" *ngIf=\"selectedHero\">\n      <h1>{{selectedHero.name}}&nbsp;<span class=\"label label-default\">{{selectedHero.id}}</span></h1>\n      <div class=\"form-group row\">\n        <label class=\"col-2 col-form-label\">HP</label>\n        <div class=\"col-10\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"selectedHero.hp\">\n        </div>\n      </div>\n      <div class=\"form-group row\">\n        <label class=\"col-2 col-form-label\">MP</label>\n        <div class=\"col-10\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"selectedHero.mp\">\n        </div>\n      </div>\n      <div class=\"form-group row\">\n        <label class=\"col-2 col-form-label\">STR</label>\n        <div class=\"col-10\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"selectedHero.str\">\n        </div>\n      </div>\n      <div class=\"form-group row\">\n        <label class=\"col-2 col-form-label\">INT</label>\n        <div class=\"col-10\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"selectedHero.int\">\n        </div>\n      </div>\n      <div class=\"form-group row\">\n        <label class=\"col-2 col-form-label\">AGI</label>\n        <div class=\"col-10\">\n          <input class=\"form-control\" type=\"number\" [(ngModel)]=\"selectedHero.agi\">\n        </div>\n      </div>\n\n    </div>\n  </div>\n"
 
 /***/ }),
 
@@ -300,10 +300,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+var HEROES = [
+    { id: 1, name: 'Shawn Brown', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 2, name: 'Tracy M. Nguyen', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 3, name: 'Gilbert M. Ford', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 4, name: 'Alberto Ryan', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 5, name: 'Chris Williamson', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 6, name: 'Alma Mcgee Brewer', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 7, name: 'Eileen Marlene Griffith', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 8, name: 'Heather B. Harris', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 9, name: 'Shane Jimmie Salazar', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 10, name: 'Tornado', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 11, name: 'Mr. Nice', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 12, name: 'Narco', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 13, name: 'Bombasto', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 14, name: 'Celeritas', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 15, name: 'Magneta', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 16, name: 'RubberMan', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 17, name: 'Dynama', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 18, name: 'Dr IQ', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 19, name: 'Magma', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+    { id: 20, name: 'Tornado', hp: 20, mp: 20, str: 20, int: 20, agi: 10 },
+];
 var HeroesComponent = (function () {
     function HeroesComponent() {
+        this.heroes = HEROES;
+        this.selectedHero = null;
     }
     HeroesComponent.prototype.ngOnInit = function () {
+    };
+    HeroesComponent.prototype.onSelect = function (hero) {
+        this.selectedHero = hero;
+        console.log(hero);
     };
     return HeroesComponent;
 }());
