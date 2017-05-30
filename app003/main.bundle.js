@@ -328,7 +328,7 @@ module.exports = "<table class=\"table table-bordered\">\r\n  <thead>\r\n    <tr
 /***/ 184:
 /***/ (function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>\n"
+module.exports = "<!-- Static navbar -->\r\n<nav class=\"navbar navbar-default\">\r\n  <div class=\"container-fluid\">\r\n    <div class=\"navbar-header\">\r\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\r\n          <span class=\"sr-only\">Toggle navigation</span>\r\n          <span class=\"icon-bar\"></span>\r\n          <span class=\"icon-bar\"></span>\r\n          <span class=\"icon-bar\"></span>\r\n        </button>\r\n      <a class=\"navbar-brand\" href=\"#\">英雄聯盟(使用FIREBASE)</a>\r\n    </div>\r\n    <div id=\"navbar\" class=\"navbar-collapse collapse\">\r\n      <ul class=\"nav navbar-nav\">\r\n        <li><a routerLink=\"/dashboard\">dashboard</a></li>\r\n        <li><a routerLink=\"/heroes\">heroes</a></li>\r\n      </ul>\r\n    </div>\r\n    <!--/.nav-collapse -->\r\n  </div>\r\n  <!--/.container-fluid -->\r\n</nav>\r\n\r\n\r\n<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
