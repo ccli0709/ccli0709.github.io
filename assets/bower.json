@@ -1,0 +1,8 @@
+{
+  "name": "webapp",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": null,
+    "jquery": null
+  }
+}
