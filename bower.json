@@ -1,0 +1,12 @@
+{
+  "name": "ccli0709",
+  "version": "1.0.0",
+  "dependencies": {
+    "jquery": "3.x",
+    "bootstrap": "3.x",
+    "framework7": "1.x",
+    "font-awesome": "4.x",
+    "angular": "1.6.x",
+    "angular-bootstrap": "2.x"
+  }
+}
