@@ -1,24 +1,41 @@
 // 參考來源
 // http://lova.logdown.com/posts/162837-html-javascript-3-the-after-school-exercise-calculator
 
+// 暫存運算用的變數
 var valueKeep = "";
+// 暫存運算用的待號
 var operator = "";
-var temp = "";
+// 暫存M+/M-/MR/MC
+var valueM = "";
+
+
 
 //數字鍵與小數點
 function numBtnClick(input) {
 
-  //避免填入運算後的數字的後面
-
   if (operator === "") {
+    if (input === ".") {
+      return;
+    }
+    
     $("#box").val(input);
     operator = "0";
     return;
   };
 
   if ($("#box").val() === "0") {
+    // 第一個數字不得輸入小數點
+    if (input === ".") {
+      return;
+    }
     $("#box").val(input);
   } else {
+
+    // 不得輸入兩個以上的小數點
+    if (input === "." && $("#box").val().indexOf(".") >= 0) {
+      return;
+    }
+
     $("#box").val($("#box").val() + input);
   }
 
@@ -63,23 +80,23 @@ function equal() {
 
 function funcBtnClick(input) {
 
-  switch (str) {
+  switch (input) {
     case 'M+':
-      valueM += parseFloat(document.getElementById("box").value);
+      valueKeep += parseFloat($("#box").val());
       break;
     case 'M-':
-      valueM -= parseFloat(document.getElementById("box").value);
+      valueKeep -= parseFloat($("#box").val());
       break;
     case 'MC':
       temp = 0;
       strOper = 0;
       valueM = 0;
-      document.getElementById("box").value = '0';
+      $("#box").val('0');
       break;
     case 'MR':
-      document.getElementById("box").value = parseFloat(valueM);
-      //防呆用
+      $("#box").val(parseFloat(valueKeep));
 
+      //防呆用
       temp = null;
       strOper = null;
       break;
