@@ -15,12 +15,15 @@
 <body>
   <script type="text/javascript">
     window.onload = function() {
-      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
-        preload: preload,
-        create: create,
-        update: update,
-        render: render
-      });
+
+
+      var game = new Phaser.Game(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio,
+        Phaser.AUTO, '', {
+          preload: preload,
+          create: create,
+          update: update,
+          render: render
+        });
 
       function preload() {
         game.load.image('ship', 'thrust_ship2.png');
