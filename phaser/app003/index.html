@@ -29,7 +29,10 @@
         game.load.image('ship', 'thrust_ship2.png');
         game.load.image('enemy', 'fly1.png');
         game.load.image('bullet', 'bullet0.png');
+
         game.load.audio('laser', 'laser.wav');
+        game.load.audio('sfx_throw', 'sfx_throw.wav');
+
 
 
       }
@@ -96,6 +99,8 @@
         fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         laser = game.add.audio('laser');
+        sfx_throw = game.add.audio('sfx_throw');
+
 
       }
 
@@ -127,6 +132,7 @@
         enemy.kill();
         score += 1;
         drawScoreText()
+        sfx_throw.play();
       }
 
       function fireBullet() {
