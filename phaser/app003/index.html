@@ -27,8 +27,10 @@
 
       function preload() {
         game.load.image('ship', 'thrust_ship2.png');
-        game.load.image('enemy', 'fly1.png');
         game.load.image('bullet', 'bullet0.png');
+
+        game.load.image('enemy', 'fly1.png');
+        game.load.image('enemyBullet', 'bomb64.png');
 
         game.load.audio('laser', 'laser.wav');
         game.load.audio('sfx_throw', 'sfx_throw.wav');
@@ -41,17 +43,25 @@
       var player;
       var player_speed = 200;
 
-      var enemies;
 
       var bullets;
       var bullet_amount = 3;
+      var bulletTime = 0;
+      var bullet;
+      var bullet_speed = 200;
 
       var cursors;
       var fireButton;
 
-      var bulletTime = 0;
-      var bullet;
-      var bullet_speed = 200;
+
+      // 這個改用命名空間
+      var enemy = {
+        enemies: {},
+        bullets: {},
+        bullet_amount: 1,
+        bulletTime: 0,
+        bullet_speed: 200
+      };
 
       var laser;
 
@@ -75,17 +85,17 @@
         player.body.collideWorldBounds = true;
 
 
-        enemies = game.add.physicsGroup();
-        enemies.enableBody = true;
-        enemies.physicsBodyType = Phaser.Physics.ARCADE;
+        enemy.enemies = game.add.physicsGroup();
+        enemy.enemies.enableBody = true;
+        enemy.enemies.physicsBodyType = Phaser.Physics.ARCADE;
         for (var i = 0; i < 10; i++) {
-          var enemy = enemies.create(
+          var _enemy = enemy.enemies.create(
             (window.innerWidth * window.devicePixelRatio) - game.rnd.integerInRange(20, 600), game.rnd.integerInRange(10, 400), 'enemy');
-          enemy.scale.setTo(0.1, 0.1);
-          enemy.body.bounce.set(1);
-          enemy.body.immovable = false;
-          enemy.body.collideWorldBounds = true;
-          game.physics.arcade.velocityFromRotation(enemy.rotation, game.rnd.integerInRange(200, 400), enemy.body.velocity);
+          _enemy.scale.setTo(0.1, 0.1);
+          _enemy.body.bounce.set(1);
+          _enemy.body.immovable = false;
+          _enemy.body.collideWorldBounds = true;
+          game.physics.arcade.velocityFromRotation(_enemy.rotation, game.rnd.integerInRange(200, 400), _enemy.body.velocity);
 
         }
 
@@ -93,6 +103,12 @@
         bullets.createMultiple(bullet_amount, 'bullet', false);
         bullets.setAll('checkWorldBounds', true);
         bullets.setAll('outOfBoundsKill', true);
+
+
+        enemy.bullets = game.add.physicsGroup();
+        enemy.bullets.createMultiple(enemy.bullet_amount, 'enemyBullet', false);
+        enemy.bullets.setAll('checkWorldBounds', true);
+        enemy.bullets.setAll('outOfBoundsKill', true);
 
 
         cursors = game.input.keyboard.createCursorKeys();
@@ -106,7 +122,8 @@
 
       function update() {
 
-        game.physics.arcade.overlap(bullets, enemies, overlapHandler, null, this);
+        game.physics.arcade.overlap(bullets, enemy.enemies, overlapHitHandler, null, this);
+        game.physics.arcade.overlap(player, enemy.bullets, overlapEndHandler, null, this);
 
         player.body.velocity.x = 0;
         player.body.velocity.y = 0;
@@ -121,13 +138,15 @@
         //if (enemy.x <= 0) enemy.body.velocity.x = 1000;
         //if (enemy.x >= window.innerWidth - 200) enemy.body.velocity.x = -1000;
 
+        fireEnemyBullet();
+
         if (fireButton.isDown || game.input.pointer1.isDown) {
           fireBullet();
         }
 
       }
 
-      function overlapHandler(bullet, enemy) {
+      function overlapHitHandler(bullet, enemy) {
         bullet.kill();
         enemy.kill();
         score += 1;
@@ -135,13 +154,35 @@
         sfx_throw.play();
       }
 
+      function overlapEndHandler(player, enemyBullet) {
+        player.kill();
+        enemyBullet.kill();
+      }
+
+      function fireEnemyBullet() {
+
+        if (game.time.time > enemy.bulletTime) {
+          var _bullet = enemy.bullets.getFirstExists(false);
+
+          if (_bullet) {
+            _bullet.reset(player.x, 0);
+            _bullet.body.velocity.y = 1 * 100;
+            enemy.bulletTime = game.time.time + enemy.bullet_speed;
+
+            // 播放音效
+            laser.play();
+          }
+        }
+      }
+
       function fireBullet() {
 
+        // 超過太久的子彈就回收掉了
         if (game.time.time > bulletTime) {
           bullet = bullets.getFirstExists(false);
 
           if (bullet) {
-            bullet.reset(player.x + 6, player.y - 12);
+            bullet.reset(player.x + 0.6, player.y - 12);
             bullet.body.velocity.y = -1 * 600;
             bulletTime = game.time.time + bullet_speed;
 
