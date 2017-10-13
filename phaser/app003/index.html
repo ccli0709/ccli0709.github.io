@@ -29,8 +29,10 @@
         game.load.image('ship', 'thrust_ship2.png');
         game.load.image('bullet', 'bullet0.png');
 
-        game.load.image('enemy', 'fly1.png');
+        //game.load.image('enemy', 'fly1.png');
         game.load.image('enemyBullet', 'bomb64.png');
+
+        game.load.spritesheet('enemy', '32x32-bat-sprite.png', 32, 32);
 
         game.load.audio('laser', 'laser.wav');
         game.load.audio('sfx_throw', 'sfx_throw.wav');
@@ -39,6 +41,12 @@
 
       }
 
+
+      var text = {
+        score: "Score: 0",
+        live: "Score: 0",
+        message: "Score: 0",
+      }
 
       var player;
       var player_speed = 200;
@@ -65,7 +73,7 @@
 
       var laser;
 
-      var textScore;
+
       var score;
 
       function create() {
@@ -76,7 +84,7 @@
           boundsAlignH: "center",
           boundsAlignV: "middle"
         };
-        textScore = game.add.text(0, 0, "SCORE: " + score, style);
+        text.score = game.add.text(0, 0, "SCORE: " + score, style);
 
         player = game.add.sprite(
           (window.innerWidth * window.devicePixelRatio) / 2,
@@ -85,19 +93,31 @@
         player.body.collideWorldBounds = true;
 
 
+
         enemy.enemies = game.add.physicsGroup();
         enemy.enemies.enableBody = true;
         enemy.enemies.physicsBodyType = Phaser.Physics.ARCADE;
-        for (var i = 0; i < 10; i++) {
-          var _enemy = enemy.enemies.create(
-            (window.innerWidth * window.devicePixelRatio) - game.rnd.integerInRange(20, 600), game.rnd.integerInRange(10, 400), 'enemy');
-          _enemy.scale.setTo(0.1, 0.1);
-          _enemy.body.bounce.set(1);
-          _enemy.body.immovable = false;
-          _enemy.body.collideWorldBounds = true;
-          game.physics.arcade.velocityFromRotation(_enemy.rotation, game.rnd.integerInRange(200, 400), _enemy.body.velocity);
 
+        for (var y = 0; y < 4; y++) {
+          for (var x = 0; x < 10; x++) {
+            var _enemy = enemy.enemies.create(x * 48, y * 50, 'enemy');
+            _enemy.anchor.setTo(0.5, 0.5);
+            _enemy.animations.add('fly', [0, 1, 2, 3], 10, true);
+            _enemy.play('fly');
+            _enemy.body.moves = false;
+          }
         }
+
+        //    for (var i = 0; i < 10; i++) {
+        //      var _enemy = enemy.enemies.create(
+        //        (window.innerWidth * window.devicePixelRatio) - game.rnd.integerInRange(20, 600), game.rnd.integerInRange(10, 400), 'enemy');
+        //      _enemy.scale.setTo(0.1, 0.1);
+        //      _enemy.body.bounce.set(1);
+        //      _enemy.body.immovable = false;
+        //      _enemy.body.collideWorldBounds = true;
+        //      game.physics.arcade.velocityFromRotation(_enemy.rotation, game.rnd.integerInRange(200, 400), _enemy.body.velocity);
+
+        //        }
 
         bullets = game.add.physicsGroup();
         bullets.createMultiple(bullet_amount, 'bullet', false);
@@ -204,7 +224,7 @@
           boundsAlignH: "center",
           boundsAlignV: "middle"
         };
-        textScore.text = "SCORE: " + score;
+        text.score.text = "SCORE: " + score;
       }
     };
   </script>
