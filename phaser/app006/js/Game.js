@@ -29,6 +29,7 @@ TopDownGame.Game.prototype = {
 
 
     this.createItems();
+    this.createDoors();
 
 
 
@@ -55,6 +56,7 @@ TopDownGame.Game.prototype = {
     //collision
     this.game.physics.arcade.collide(this.player, this.blockedLayer);
     this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
+    this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
     // 做一個玩家移動到點擊處的功能,本來想用滑鼠點擊位置來分成四個移動方向
     // 滑鼠點擊位置是view的大小,但player的位置則是世界的大小,不能用這兩個坐標來處理
@@ -64,9 +66,6 @@ TopDownGame.Game.prototype = {
       this.player.body.velocity.x = 0;
       this.player.body.velocity.y = 0;
     }
-
-
-
   },
   collect: function(player, collectable) {
     // 改用上一佪範例的音效來呈現
@@ -74,6 +73,10 @@ TopDownGame.Game.prototype = {
 
     //remove sprite
     collectable.destroy();
+  },
+  enterDoor: function(player, collectable) {
+    console.log("enterDoor");
+    this.state.start('Preload');
   },
   createItems: function() {
     //create items
@@ -84,6 +87,16 @@ TopDownGame.Game.prototype = {
     result = this.findObjectsByType('item', this.map, 'objectsLayer');
     result.forEach(function(element) {
       this.createFromTiledObject(element, this.items);
+    }, this);
+  },
+  createDoors: function() {
+    //create doors
+    this.doors = this.game.add.group();
+    this.doors.enableBody = true;
+    result = this.findObjectsByType('door', this.map, 'objectsLayer');
+
+    result.forEach(function(element) {
+      this.createFromTiledObject(element, this.doors);
     }, this);
   },
   // 書上說phaser裡就有這個方法,但此範例另有用處,因此是自己做一個,建議還是用phaser.js裡面的
