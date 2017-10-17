@@ -4,8 +4,11 @@ var TopDownGame = TopDownGame || {};
 TopDownGame.Game = function() {};
 
 TopDownGame.Game.prototype = {
+  init: function(level){
+    this.level = level;
+  },
   preload: function() {
-    this.map = this.game.add.tilemap('level1');
+    this.map = this.game.add.tilemap(this.level);
     //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
     // 這裡用的名稱都是在preload時載入的變數名稱
     this.map.addTilesetImage('tiles', 'gameTiles');
@@ -21,13 +24,8 @@ TopDownGame.Game.prototype = {
     // 所以每一層可以不必固定大小?反正最後就是依背景來重設世界大小
     this.backgroundlayer.resizeWorld();
 
-
-
-
     this.createItems();
     this.createDoors();
-
-
 
     //create player
     // 用type來找出tiled裡設定的玩家
@@ -72,7 +70,8 @@ TopDownGame.Game.prototype = {
   },
   enterDoor: function(player, collectable) {
     console.log("enterDoor");
-    this.state.start('Preload');
+
+    this.state.start('Game', true, false, collectable.targetTilemap);
   },
   createItems: function() {
     //create items
@@ -90,7 +89,7 @@ TopDownGame.Game.prototype = {
     this.doors = this.game.add.group();
     this.doors.enableBody = true;
     result = this.findObjectsByType('door', this.map, 'objectsLayer');
-
+    console.log(result);
     result.forEach(function(element) {
       this.createFromTiledObject(element, this.doors);
     }, this);
