@@ -107,7 +107,7 @@
     <property name="type" value="playerStart"/>
    </properties>
   </object>
-  <object id="4" gid="441" x="16" y="400" width="16" height="16">
+  <object id="4" gid="441" x="544" y="32" width="16" height="16">
    <properties>
     <property name="sprite" value="browndoor"/>
     <property name="targetTilemap" value="level2"/>

@@ -40,10 +40,6 @@ SpaceHipster.Game.prototype = {
 
     this.collectSound = this.game.add.audio('collect');
     this.explosionSound = this.game.add.audio('explosion');
-
-
-
-
   },
   update: function() {
     if (this.game.input.activePointer.justPressed()) {

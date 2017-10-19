@@ -27,6 +27,6 @@ TopDownGame.Preload.prototype = {
     this.load.audio('collect', 'assets/audio/collect.ogg');
   },
   create: function() {
-    this.state.start('Game', true, false, "level1");
+    this.state.start('Menu', true, false, 999);
   }
 };

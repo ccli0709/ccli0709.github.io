@@ -4,8 +4,9 @@ var TopDownGame = TopDownGame || {};
 TopDownGame.Game = function() {};
 
 TopDownGame.Game.prototype = {
-  init: function(level){
+  init: function(level, usedTime) {
     this.level = level;
+    this.usedTime = this.usedTime || 0;
   },
   preload: function() {
     this.map = this.game.add.tilemap(this.level);
@@ -44,6 +45,16 @@ TopDownGame.Game.prototype = {
   },
   create: function() {
     this.collectSound = this.game.add.audio('collect');
+
+    //  Create our Timer
+    this.timer = this.game.time.create(false);
+    //  Set a TimerEvent to occur after 2 seconds
+    this.timer.loop(1000, this.updateUsedTime, this);
+    this.timer.start();
+    //show score
+    this.showLabels();
+
+
   },
   update: function() {
 
@@ -55,11 +66,29 @@ TopDownGame.Game.prototype = {
     // 做一個玩家移動到點擊處的功能,本來想用滑鼠點擊位置來分成四個移動方向
     // 滑鼠點擊位置是view的大小,但player的位置則是世界的大小,不能用這兩個坐標來處理
     if (this.game.input.activePointer.isDown) {
-      this.game.physics.arcade.moveToPointer(this.player, 100);
+      this.game.physics.arcade.moveToPointer(this.player, 150);
     } else {
       this.player.body.velocity.x = 0;
       this.player.body.velocity.y = 0;
     }
+
+    // 使用時間
+    this.timerLabel.text = "經過秒數：" + this.usedTime;
+  },
+  showLabels: function() {
+    //score text
+    var text = "0";
+    var timerStyle = {
+      font: "10px Arial",
+      fill: "#fff",
+      align: "center"
+    };
+    this.timerLabel = this.game.add.text(this.game.width - 90, this.game.height - 20, "0", timerStyle);
+    // 固定在顯示畫面而不是固定在地圖上
+    this.timerLabel.fixedToCamera = true;
+  },
+  updateUsedTime: function() {
+    this.usedTime++;
   },
   collect: function(player, collectable) {
     // 改用上一佪範例的音效來呈現
@@ -69,9 +98,13 @@ TopDownGame.Game.prototype = {
     collectable.destroy();
   },
   enterDoor: function(player, collectable) {
-    console.log("enterDoor");
-
-    this.state.start('Game', true, false, collectable.targetTilemap);
+    if ("level4" === collectable.targetTilemap) {
+      // 遊戲結束
+      this.state.start('Menu', true, false, this.usedTime);
+    } else {
+      // 到下一關
+      this.state.start('Game', true, false, collectable.targetTilemap, this.usedTime);
+    }
   },
   createItems: function() {
     //create items
@@ -89,7 +122,7 @@ TopDownGame.Game.prototype = {
     this.doors = this.game.add.group();
     this.doors.enableBody = true;
     result = this.findObjectsByType('door', this.map, 'objectsLayer');
-    console.log(result);
+
     result.forEach(function(element) {
       this.createFromTiledObject(element, this.doors);
     }, this);
