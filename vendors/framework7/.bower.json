@@ -5,7 +5,7 @@
     "url": "https://github.com/nolimits4web/Framework7.git"
   },
   "description": "Full featured mobile HTML framework for building iOS & Android apps",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "author": "Vladimir Kharlampidi",
   "homepage": "http://framework7.io",
   "keywords": [
@@ -49,11 +49,11 @@
     "node_modules",
     "package.json"
   ],
-  "_release": "1.6.4",
+  "_release": "1.6.5",
   "_resolution": {
     "type": "version",
-    "tag": "v1.6.4",
-    "commit": "fe295479b102556e1e4616ecdd8cc7ef5a846373"
+    "tag": "v1.6.5",
+    "commit": "d575d3972954c74a8e3d58e969fbc910dcc790ff"
   },
   "_source": "https://github.com/nolimits4web/Framework7.git",
   "_target": "1.x",

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>AngularJS Form Validation
+    <</title>
+
+      <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+      <style>
+        input.ng-pristine {
+          background-color: lightblue;
+        }
+
+        input.ng-dirty {
+          background-color: pink;
+        }
+      </style>
+      <script src="../../vendors/angular/angular.min.js"></script>
+</head>
+
+<body ng-app="">
+  <div class="container">
+    <h1>表單驗證練習</h1>
+
+    <form name="formMasterModel">
+
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">表單編號</span>
+          <input type="text" name='formId' class="form-control" ng-model="formId" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">電子郵件</span>
+          <input type="email" name='userMail' class="form-control" ng-model="userMail" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">姓名</span>
+          <input type="text" name='userName' class="form-control" ng-model="userName" required>
+        </div>
+      </div>
+    </form>
+    <hr>
+    <div class="alert alert-danger" ng-show='formMasterModel.formId.$valid'>
+      <strong>注意!</strong> 表單編號為必填欄位。
+    </div>
+    <div class="alert alert-danger" ng-show='formMasterModel.userMail.$error.required'>
+      <strong>注意!</strong> 電子郵件為必填欄位。
+    </div>
+    <div class="alert alert-danger" ng-show='formMasterModel.userMail.$error.email'>
+      <strong>注意!</strong> 電子郵件必須為合法郵件格式。
+    </div>
+  </div>
+
+</body>
+
+</html>
