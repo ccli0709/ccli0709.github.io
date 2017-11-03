@@ -11,52 +11,57 @@
 
       <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
       <style>
-        input.ng-pristine {
-          background-color: lightblue;
-        }
-
-        input.ng-dirty {
-          background-color: pink;
+        input.ng-invalid {
+          background-color: #fcf8e3;
         }
       </style>
       <script src="../../vendors/angular/angular.min.js"></script>
+      <script src="app.js"></script>
+      <script src="controller.js"></script>
 </head>
 
-<body ng-app="">
+<body ng-app="myApp" ng-controller='myController'>
   <div class="container">
-    <h1>表單驗證練習</h1>
+    <h1>表單驗證練習(NG+HTML5)</h1>
 
-    <form name="formMasterModel">
+    <form name="masterForm">
 
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon">表單編號</span>
-          <input type="text" name='formId' class="form-control" ng-model="formId" required>
+          <input type="text" name='formId' class="form-control" ng-model="masterModel.formId" required>
         </div>
       </div>
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon">電子郵件</span>
-          <input type="email" name='userMail' class="form-control" ng-model="userMail" required>
+          <input type="email" name='userMail' class="form-control" ng-model="masterModel.userMail" required>
         </div>
       </div>
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon">姓名</span>
-          <input type="text" name='userName' class="form-control" ng-model="userName" required>
+          <input type="text" name='userName' class="form-control" ng-model="masterModel.userName" required>
         </div>
       </div>
     </form>
     <hr>
-    <div class="alert alert-danger" ng-show='formMasterModel.formId.$valid'>
+    <div class="alert alert-warning" ng-show='masterForm.formId.$invalid'>
       <strong>注意!</strong> 表單編號為必填欄位。
     </div>
-    <div class="alert alert-danger" ng-show='formMasterModel.userMail.$error.required'>
+    <div class="alert alert-warning" ng-show='masterForm.userMail.$error.required'>
       <strong>注意!</strong> 電子郵件為必填欄位。
     </div>
-    <div class="alert alert-danger" ng-show='formMasterModel.userMail.$error.email'>
+    <div class="alert alert-warning" ng-show='masterForm.userMail.$error.email'>
       <strong>注意!</strong> 電子郵件必須為合法郵件格式。
     </div>
+    <div class="alert alert-warning" ng-show='masterForm.userName.$invalid'>
+      <strong>注意!</strong> 姓名為必填欄位。
+    </div>
+    <div class="alert alert-danger" ng-show='!masterForm.$valid'>
+      <strong>注意!</strong> 整張表單裡的所有資料驗證尚未通過，無法送出。
+    </div>
+    <button class='btn btn-primary' ng-disabled='!masterForm.$valid'>送出資料</button>
   </div>
 
 </body>
