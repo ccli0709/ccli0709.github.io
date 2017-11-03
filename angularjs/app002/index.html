@@ -14,6 +14,19 @@
         input.ng-invalid {
           background-color: #fcf8e3;
         }
+
+        .blue {
+          color: #d9edf7;
+        }
+
+
+        .green {
+          color: #dff0d8;
+        }
+
+        .red {
+          color: #f2dede;
+        }
       </style>
       <script src="../../vendors/angular/angular.min.js"></script>
       <script src="app.js"></script>
@@ -24,12 +37,23 @@
   <div class="container">
     <h1>表單驗證練習(NG+HTML5)</h1>
     <ul class="list-group">
-      <li class="list-group-item">在form標籤裡加入novalidate屬性，就會關閉這種驗證功能。</li>
-      <li class="list-group-item">使用ng內建的css類別，就可以快速帶出驗證樣式。</li>
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon-question-sign red"></span> 測試如果在model由後端更新之後，form裡面的dirty是否會重置。
+      </li>
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon glyphicon-info-sign blue"></span> model資料更新過後，form裡面的dirty是不會重置的，看起來就是只記錄form的狀態改變。
+      </li>
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon glyphicon-info-sign blue"></span> 在controller.js裡面使用$scope.masterForm.$setPristine()來做重置。
+      </li>
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon-question-sign red"></span> 又是否能在dirty時自動帶起checkbox，做為送出資料更新時的依據呢？
+      </li>
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon glyphicon-info-sign green"></span> 送出按鈕的狀態改成「表單髒掉以及內容有效」時才可以被按下。
+      </li>
       <li class="list-group-item"><a href='https://www.w3schools.com/angular/angular_validation.asp' target='_blank'>參考來源</a></li>
-
     </ul>
-
     <form name="masterForm">
       <div class="form-group">
         <div class="input-group">
@@ -66,7 +90,12 @@
     <div class="alert alert-danger" ng-show='!masterForm.$valid'>
       <strong>注意!</strong> 整張表單裡的所有資料驗證尚未通過，無法送出。
     </div>
-    <button class='btn btn-primary' ng-disabled='!masterForm.$valid'>送出資料</button>
+    <div class="alert alert-info" ng-show='masterForm.$dirty'>
+      <strong>注意!</strong> 整張表單裡的有一個或多個欄位資料被異動。
+    </div>
+
+    <button class='btn btn-primary' ng-disabled='!(masterForm.$dirty && masterForm.$valid)'>送出資料</button>
+    <button class='btn btn—warning' ng-click='emulateUpdateData()'>模擬model資料更新</button>
   </div>
 
 </body>
