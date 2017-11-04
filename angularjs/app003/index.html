@@ -34,24 +34,18 @@
 
 <body ng-app="myApp" ng-controller='myController'>
   <div class="container">
-    <h1>表單驗證練習(NG+HTML5)</h1>
+    <h1>表單驗證練習(ngPattern)</h1>
     <ul class="list-group">
       <li class="list-group-item">
-        <span class="glyphicon glyphicon-question-sign red"></span> 測試如果在model由後端更新之後，form裡面的dirty是否會重置。
+        <span class="glyphicon glyphicon-question-sign red"></span> ng-pattern存在時,required就無效,而當欄位為空字串時,ng-pattern仍會通過驗證,這並不是我要的。
       </li>
       <li class="list-group-item">
-        <span class="glyphicon glyphicon glyphicon-info-sign blue"></span> model資料更新過後，form裡面的dirty是不會重置的，看起來就是只記錄form的狀態改變。
+        <span class="glyphicon glyphicon glyphicon-info-sign blue"></span> 發現原來在input標籤裡的驗證方式是有順序的,若是先寫ng-pattern就是因為空字串通過驗證,而不會再進行required。
       </li>
       <li class="list-group-item">
-        <span class="glyphicon glyphicon glyphicon-info-sign blue"></span> 在controller.js裡面使用$scope.masterForm.$setPristine()來做重置。
+        <span class="glyphicon glyphicon glyphicon-info-sign blue"></span> 所以只要在input標籤裡先寫required再寫ng-pattern就可以了。
       </li>
-      <li class="list-group-item">
-        <span class="glyphicon glyphicon glyphicon-info-sign blue"></span> 某篇文章裡提到1.3.x之後增加$scope.masterForm.$setUntouched()，可以把表單清得更乾淨。
-      </li>
-      <li class="list-group-item">
-        <span class="glyphicon glyphicon glyphicon-info-sign green"></span> 送出按鈕的狀態改成「表單髒掉以及內容有效」時才可以被按下。
-      </li>
-      <li class="list-group-item"><a href='https://www.w3schools.com/angular/angular_validation.asp' target='_blank'>參考來源</a></li>
+      <li class="list-group-item"><a href='https://docs.angularjs.org/api/ng/directive/ngPattern' target='_blank'>參考來源</a></li>
     </ul>
     <form name="masterForm">
       <div class="form-group">
@@ -72,6 +66,12 @@
           <input type="text" name='userName' class="form-control" ng-model="masterModel.userName" required>
         </div>
       </div>
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">身份證字號</span>
+          <input type="text" name='personalId' class="form-control" ng-model="masterModel.personalId" required ng-pattern="/^[A-Z]{1}[1-2]{1}[0-9]{8}$/">
+        </div>
+      </div>
     </form>
     <hr>
     <div class="alert alert-warning" ng-show='masterForm.formId.$invalid'>
@@ -85,6 +85,12 @@
     </div>
     <div class="alert alert-warning" ng-show='masterForm.userName.$invalid'>
       <strong>注意!</strong> 姓名為必填欄位。
+    </div>
+    <div class="alert alert-warning" ng-show='masterForm.personalId.$error.required'>
+      <strong>注意!</strong> 身份證字號為必填欄位。
+    </div>
+    <div class="alert alert-warning" ng-show='masterForm.personalId.$error.pattern'>
+      <strong>注意!</strong> 身份證字號為必須符合正確格式。
     </div>
     <div class="alert alert-danger" ng-show='!masterForm.$valid'>
       <strong>注意!</strong> 整張表單裡的所有資料驗證尚未通過，無法送出。
