@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>AngularJS Form Validation
+    <</title>
+
+      <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+      <style>
+        input.ng-invalid {
+          background-color: #fcf8e3;
+        }
+
+        .blue {
+          color: #d9edf7;
+        }
+
+        .green {
+          color: #dff0d8;
+        }
+
+        .red {
+          color: #f2dede;
+        }
+      </style>
+      <script src="../../vendors/angular/angular.min.js"></script>
+      <script src="app.js"></script>
+      <script src="validators/formId.js"></script>
+      <script src="controller.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller='myController'>
+  <div class="container">
+    <h1>表單驗證練習(Customer Validation)</h1>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon-question-sign red"></span> 直接在controller裡做判斷，這樣不但會讓controller越來越肥，而且這些自訂的驗證方法並不能重複利用。
+      </li>
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon glyphicon-info-sign blue"></span> 注意命名方法,在directive裡為formIdValidator，在html裡就要寫form-id-validator，否則會無法被觸發。 發現原來在input標籤裡的驗證方式是有順序的,若是先寫ng-pattern就是因為空字串通過驗證,而不會再進行required。
+      </li>
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon glyphicon-info-sign blue"></span> directive預設會帶入原本$scope的參數(scope參數為false)，所以就可以根據其他欄位來做驗證檢查。
+      </li>
+      <li class="list-group-item"><a href='http://exile1030-blog.logdown.com/posts/173171-validation-in-angular-way-custom-authentication-directive' target='_blank'>參考來源</a></li>
+      <li class="list-group-item"><a href='http://blog.johnsonlu.org/angularjs-directive/' target='_blank'>參考來源</a></li>
+
+
+    </ul>
+    <form name="masterForm">
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">表單編號</span>
+          <input type="text" name='formId' class="form-control" ng-model="masterModel.formId" required form-id-validator>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">電子郵件</span>
+          <input type="email" name='userMail' class="form-control" ng-model="masterModel.userMail" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">姓名</span>
+          <input type="text" name='userName' class="form-control" ng-model="masterModel.userName" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">身份證字號</span>
+          <input type="text" name='personalId' class="form-control" ng-model="masterModel.personalId" required ng-pattern="/^[A-Z]{1}[1-2]{1}[0-9]{8}$/">
+        </div>
+      </div>
+    </form>
+    <hr>
+    <div class="alert alert-warning" ng-show='masterForm.formId.$error.required'>
+      <strong>注意!</strong> 表單編號為必填欄位。
+    </div>
+    <div class="alert alert-warning" ng-show='masterForm.formId.$error.formId'>
+      <strong>注意!</strong> 表單編號必須為合法編號格式(1-4碼西元年,5-9碼是單位別,10-12是流水號)。
+    </div>
+    <div class="alert alert-warning" ng-show='masterForm.userMail.$error.required'>
+      <strong>注意!</strong> 電子郵件為必填欄位。
+    </div>
+    <div class="alert alert-warning" ng-show='masterForm.userMail.$error.email'>
+      <strong>注意!</strong> 電子郵件必須為合法郵件格式。
+    </div>
+    <div class="alert alert-warning" ng-show='masterForm.userName.$invalid'>
+      <strong>注意!</strong> 姓名為必填欄位。
+    </div>
+    <div class="alert alert-warning" ng-show='masterForm.personalId.$error.required'>
+      <strong>注意!</strong> 身份證字號為必填欄位。
+    </div>
+    <div class="alert alert-warning" ng-show='masterForm.personalId.$error.pattern'>
+      <strong>注意!</strong> 身份證字號為必須符合正確格式。
+    </div>
+    <div class="alert alert-danger" ng-show='!masterForm.$valid'>
+      <strong>注意!</strong> 整張表單裡的所有資料驗證尚未通過，無法送出。
+    </div>
+    <div class="alert alert-info" ng-show='masterForm.$dirty'>
+      <strong>注意!</strong> 整張表單裡的有一個或多個欄位資料被異動。
+    </div>
+
+    <button class='btn btn-primary' ng-disabled='!(masterForm.$dirty && masterForm.$valid)'>送出資料</button>
+    <button class='btn btn—warning' ng-click='emulateUpdateData()'>模擬model資料更新</button>
+  </div>
+
+</body>
+
+</html>
