@@ -11,36 +11,15 @@
 
       <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
       <style>
-        input.ng-invalid {
-          background-color: #fcf8e3;
-        }
-
-        input.ng-pending {
-          background-color: #d9edf7;
-        }
-
-        .blue {
-          color: #d9edf7;
-        }
-
-        .green {
-          color: #dff0d8;
-        }
-
-        .red {
-          color: #f2dede;
-        }
       </style>
       <script src="../../vendors/angular/angular.min.js"></script>
       <script src="app.js"></script>
-      <script src="validators/formId.js"></script>
-      <script src="validators/deptAsync.js"></script>
       <script src="controller.js"></script>
 </head>
 
 <body ng-app="myApp" ng-controller='myController'>
   <div class="container">
-    <h1>表單驗證練習(Customer Validation)</h1>
+    <h1>表單驗證練習(NgRepeat Validation)</h1>
     <ul class="list-group">
       <li class="list-group-item">
         <span class="glyphicon glyphicon-question-sign red"></span> 直接在controller裡做判斷，這樣不但會讓controller越來越肥，而且這些自訂的驗證方法並不能重複利用。
@@ -58,39 +37,40 @@
 
 
     </ul>
-    <form name="masterForm">
-      <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon">表單編號</span>
-          <input type="text" name='formId' class="form-control" ng-model="masterModel.formId" required form-id-validator>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon">單位[模擬AJAX檢查]</span>
-          <input type="text" name='dept' class="form-control" ng-model="masterModel.dept" required dept-async-validator>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon">電子郵件</span>
-          <input type="email" name='userMail' class="form-control" ng-model="masterModel.userMail" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon">姓名</span>
-          <input type="text" name='userName' class="form-control" ng-model="masterModel.userName" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon">身份證字號</span>
-          <input type="text" name='personalId' class="form-control" ng-model="masterModel.personalId" required ng-pattern="/^[A-Z]{1}[1-2]{1}[0-9]{8}$/">
-        </div>
-      </div>
+    <form name="detailForm">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>電子郵件</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='m in detailModels'>
+            <td>
+              <input type='text' name='userName_{{$index}}' class='form-control' ng-model='m.userName' required minlength="3" />
+              <span class="label label-danger" ng-show="detailForm['userName_' + $index].$error.required">必填欄位</span>
+              <span class="label label-danger" ng-show="detailForm['userName_' + $index].$error.minlength">至少輸入3個字元</span>
+            </td>
+            <td>
+              <div ng-class="['has-feedback', {'has-error':detailForm['userMail_' + $index].$invalid}]">
+                <input type='email' name='userMail_{{$index}}' class='form-control has-warning' ng-model='m.userMail' required />
+                <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="detailForm['userMail_' + $index].$error.required"></span>
+                <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="detailForm['userMail_' + $index].$error.email"></span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
     </form>
     <hr>
+
+    <div class="alert alert-danger" ng-show='!detailForm.$valid'>
+      <strong>注意!</strong> 整張表單裡的所有資料驗證尚未通過，無法送出。
+    </div>
+
+
     <div class="alert alert-warning" ng-show='masterForm.formId.$error.required'>
       <strong>注意!</strong> 表單編號為必填欄位。
     </div>
@@ -121,14 +101,12 @@
     <div class="alert alert-warning" ng-show='masterForm.personalId.$error.pattern'>
       <strong>注意!</strong> 身份證字號為必須符合正確格式。
     </div>
-    <div class="alert alert-danger" ng-show='!masterForm.$valid'>
-      <strong>注意!</strong> 整張表單裡的所有資料驗證尚未通過，無法送出。
-    </div>
+
     <div class="alert alert-info" ng-show='masterForm.$dirty'>
       <strong>注意!</strong> 整張表單裡的有一個或多個欄位資料被異動。
     </div>
 
-    <button class='btn btn-primary' ng-disabled='!(masterForm.$dirty && masterForm.$valid)'>送出資料</button>
+    <button class='btn btn-primary' ng-disabled='!(detailForm.$dirty && detailForm.$valid)'>送出資料</button>
     <button class='btn btn—warning' ng-click='emulateUpdateData()'>模擬model資料更新</button>
   </div>
 
