@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="my-app">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsenui.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsen-css-components.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/js/onsenui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/js/angular-onsenui.min.js"></script>
+</head>
+
+<body>
+  <ons-page ng-controller="PageController">
+    <ons-toolbar>
+      <div class="center">{{title}}</div>
+    </ons-toolbar>
+
+    <ons-tabbar swipeable position="auto">
+      <ons-tab page="tab1.html" label="手機待核[下拉更新]" icon="ion-home, material:md-home" badge="7" active>
+      </ons-tab>
+      <ons-tab page="tab2.html" label="目前待辦[卡片樣式]" icon="md-settings" active-icon="md-face">
+      </ons-tab>
+      <ons-tab page="tab3.html" label="今日所辦[資料綁定]" icon="md-settings" active-icon="md-face">
+      </ons-tab>
+    </ons-tabbar>
+  </ons-page>
+
+  <template id="tab1.html">
+    <ons-page id="Tab1">
+      <ons-pull-hook ng-action="load($done)" var="loader">
+  <span ng-switch="loader.state">
+    <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a"></ons-icon> 下拉更新資料</span>
+    <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a"></ons-icon> 放開更新資料</span>
+    <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d"></ons-icon> 讀取資料...</span>
+  </span>
+</ons-pull-hook>
+      <ons-card ng-repeat='item in todoItems'>
+        <div class="title">
+          {{ item.title}}
+        </div>
+        <div class="content">
+          {{ item.content}}
+        </div>
+        <div class="content">
+          <ons-button><ons-icon icon="ion-thumbsup"></ons-icon></ons-button>
+          <ons-button><ons-icon icon="ion-thumbsdown"></ons-icon></ons-button>
+        </div>
+      </ons-card>
+    </ons-page>
+  </template>
+
+  <template id="tab2.html">
+    <ons-page id="Tab2">
+      <ons-card ng-repeat='item in waitingItems'>
+        <div class="title">
+          {{ item.title}}
+        </div>
+        <div class="content">
+          {{ item.content}}
+          <ons-button><ons-icon icon="ion-thumbsup"></ons-icon></ons-button>
+        </div>
+      </ons-card>
+    </ons-page>
+  </template>
+
+  <template id="tab3.html">
+    <ons-page id="Tab3">
+      <ons-card ng-repeat='item in closedItems'>
+        <div class="title">
+          {{ item.title}}
+        </div>
+        <div class="content">
+          {{ item.content}}
+        </div>
+      </ons-card>
+    </ons-page>
+  </template>
+
+  <script>
+    var module = angular.module('my-app', ['onsen']);
+    module.controller('PageController', function($scope, $timeout) {
+      $scope.title = '[偽]訊息通報';
+      $scope.todoItems = [{
+        title: 'XXX假單待核, 2017/01/25~2017/01/26',
+        content: '發送者:F350李政忠, 發送時間:2017/01/20'
+      }, {
+        title: 'XXX假單待核, 2017/02/20~2017/02/23',
+        content: '發送者:F350李政忠, 發送時間:2017/01/20'
+      }];
+      $scope.waitingItems = [{
+        title: '船運進口文件通知,如來貨與文件不符,請速洽C31',
+        content: '發送者:C310謝宗憲, 發送時間:2017/01/09'
+      }, {
+        title: '船運進口文件通知,如來貨與文件不符,請速洽C31',
+        content: '發送者:C310謝宗憲, 發送時間:2017/01/01'
+      }, {
+        title: '船運進口文件通知,如來貨與文件不符,請速洽C31',
+        content: '發送者:C310謝宗憲, 發送時間:2016/12/19'
+      }, {
+        title: '船運進口文件通知,如來貨與文件不符,請速洽C31',
+        content: '發送者:C310謝宗憲, 發送時間:2016/12/02'
+      }, {
+        title: '船運進口文件通知,如來貨與文件不符,請速洽C31',
+        content: '發送者:C310謝宗憲, 發送時間:2016/11/23'
+      }, {
+        title: '船運進口文件通知,如來貨與文件不符,請速洽C31',
+        content: '發送者:C310謝宗憲, 發送時間:2016/11/12'
+      }];
+      $scope.closedItems = [{
+        title: '船運進口文件通知,如來貨與文件不符,請速洽C31',
+        content: '發送者:C310謝宗憲, 發送時間:2016/10/01'
+      }, {
+        title: '船運進口文件通知,如來貨與文件不符,請速洽C31',
+        content: '發送者:C310謝宗憲, 發送時間:2016/09/23'
+      }];
+
+      $scope.load = function($done) {
+        $timeout(function() {
+          $scope.todoItems.unshift({
+            title: 'XXX假單待核, 2017/03/1~2017/03/1',
+            content: '發送者:F350李政忠, 發送時間:2017/01/22'
+          });
+          $done();
+        }, 1000);
+      };
+
+    });
+  </script>
+</body>
+
+</html>
