@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="my-app">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsenui.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsen-css-components.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/js/onsenui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/js/angular-onsenui.min.js"></script>
+  <style>
+    table.calendar {
+      width: 100%;
+    }
+
+    table.calendar th {
+      text-align: center;
+      font-size: larger;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      background-color: #dddddd;
+    }
+
+    table.calendar td {
+      padding-bottom: 16px;
+    }
+
+    .holiday {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <ons-page ng-controller="PageController">
+    <ons-toolbar>
+      <div class="center">{{title}}</div>
+    </ons-toolbar>
+    <ons-card style='padding: 2px'>
+
+      <table class='calendar'>
+        <tr>
+          <th>日</th>
+          <th>一</th>
+          <th>二</th>
+          <th>三</th>
+          <th>四</th>
+          <th>五</th>
+          <th>六</th>
+        </tr>
+        <tr ng-repeat='row in rows'>
+          <td ng-repeat='item in row.items' ng-click='alert(item)'>
+            <div style='width:100%; font-size:large' ng-class='{"holiday" : item.type == "休假"}'>{{item.view}}</div>
+            <div style='width:100%; font-size:smaller'>{{item.type}}</div>
+          </td>
+        </tr>
+      </table>
+
+
+    </ons-card>
+
+  </ons-page>
+
+  <script>
+    var module = angular.module('my-app', ['onsen']);
+    module.controller('PageController', function($scope) {
+      $scope.title='[偽]行事曆'
+      $scope.rows = [{
+          items: [{
+            date: '20171231',
+            view: '',
+            type: '',
+            description: ''
+          }, {
+            date: '20180101',
+            view: '01',
+            type: '休假',
+            description: '元旦'
+          }, {
+            date: '20180102',
+            view: '02',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180103',
+            view: '03',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180104',
+            view: '04',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180105',
+            view: '05',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180106',
+            view: '06',
+            type: '休假',
+            description: ''
+          }]
+        },
+        {
+          items: [{
+            date: '20171207',
+            view: '07',
+            type: '休假',
+            description: ''
+          }, {
+            date: '20180108',
+            view: '08',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180109',
+            view: '09',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180110',
+            view: '10',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180111',
+            view: '11',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180112',
+            view: '12',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180113',
+            view: '13',
+            type: '休假',
+            description: ''
+          }]
+        },
+        {
+          items: [{
+            date: '20171214',
+            view: '14',
+            type: '休假',
+            description: ''
+          }, {
+            date: '20180115',
+            view: '15',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180116',
+            view: '16',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180117',
+            view: '17',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180118',
+            view: '18',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180119',
+            view: '19',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180120',
+            view: '20',
+            type: '休假',
+            description: ''
+          }]
+        },
+        {
+          items: [{
+            date: '20171221',
+            view: '21',
+            type: '休假',
+            description: ''
+          }, {
+            date: '20180122',
+            view: '22',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180123',
+            view: '23',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180124',
+            view: '24',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180125',
+            view: '25',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180126',
+            view: '26',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180127',
+            view: '27',
+            type: '休假',
+            description: ''
+          }]
+        },
+        {
+          items: [{
+            date: '20171228',
+            view: '28',
+            type: '休假',
+            description: ''
+          }, {
+            date: '20180129',
+            view: '29',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180130',
+            view: '30',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '20180131',
+            view: '31',
+            type: '常日班',
+            description: ''
+          }, {
+            date: '',
+            view: '',
+            type: '',
+            description: ''
+          }, {
+            date: '',
+            view: '',
+            type: '',
+            description: ''
+          }, {
+            date: '',
+            view: '',
+            type: '',
+            description: ''
+          }]
+        }
+      ];
+
+
+      $scope.alert = function(item) {
+        if (item.description != "")
+          ons.notification.alert(item.description);
+      };
+    });
+  </script>
+</body>
+
+</html>
