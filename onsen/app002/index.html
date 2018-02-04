@@ -3,11 +3,24 @@
 
 <head>
   <meta charset="utf-8">
+
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsenui.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/css/onsen-css-components.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/js/onsenui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.8.3/js/angular-onsenui.min.js"></script>
+
+  <script src="https://mas.csc.com.tw/erp/html/app/components/ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://mas.csc.com.tw/erp/html/app/components/code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="https://mas.csc.com.tw/erp/html/util/loginUtil.js"></script>
+  <!--
+  <script src="https://mas.csc.com.tw/erp/html/PD/PD_EzoApp/config/app.properties"></script>
+  -->
+  <script src="app.properties"></script>
+
+
 </head>
 
 <body>
@@ -116,17 +129,50 @@
       }];
 
       $scope.load = function($done) {
-        $timeout(function() {
-          $scope.todoItems.unshift({
-            title: 'XXX假單待核, 2017/03/1~2017/03/1',
-            content: '發送者:F350李政忠, 發送時間:2017/01/22'
-          });
-          $done();
-        }, 1000);
+
+        $.gk.ajax({
+          type: "GET",
+          url: urlStrPDM1,
+          data: {
+            userIdQ: '170134',
+            ymQ: '10701',
+            _format: 'json',
+            _action: 'query'
+          },
+          config: {
+            mask: true,
+            fail: false
+          },
+          dataType: "json",
+          success: function(data) {
+            status = "Y";
+          },
+          error: function(data) {
+            status = "N";
+          },
+          complete: function(data) {
+
+            if (status == "Y") {
+              content = $.parseJSON(data.responseText);
+              console.log(content);
+            }
+
+          },
+          crossDomain: true
+        });
+
+        //$timeout(function() {
+        //    title: 'XXX假單待核, 2017/03/1~2017/03/1',
+        //  $scope.todoItems.unshift({
+        //    content: '發送者:F350李政忠, 發送時間:2017/01/22'
+        //  });
+        //  $done();
+        //}, 1000);
       };
 
     });
   </script>
+
 </body>
 
 </html>
