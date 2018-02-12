@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VUE(Browsers)</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container" id="app">
+    <my-navbar></my-navbar>
+    <!-- Static navbar -->
+    <my-title v-bind:name='title'></my-title>
+    <alert type="success"><b>這一頁</b> 測試vue2的Browsers模式, bootstrap3元件, 和vue-loader的使用. </alert>
+    <tabs>
+      <tab>Tab content 1.</tab>
+      <tab>Tab content 2.</tab>
+    </tabs>
+
+    <btn>Default</btn>
+    <btn type="primary">Primary</btn>
+    <btn type="success">Success</btn>
+    <btn type="info">Info</btn>
+    <btn type="warning">Warning</btn>
+    <btn type="danger">Danger</btn>
+    <btn type="link">Link</btn>
+
+    <section>
+      <div>
+        <btn type="primary" @click="show=!show">Click me!</btn>
+      </div>
+      <br/>
+      <collapse v-model="show">
+        <div class="well" style="margin-bottom: 0">Hi there.</div>
+      </collapse>
+    </section>
+
+
+
+
+    <dropdown ref="dropdown">
+      <btn type="primary" class="dropdown-toggle">Dropdown <span class="caret"></span></btn>
+      <template slot="dropdown">
+   <li><a role="button">Action</a></li>
+   <li><a role="button">Another action</a></li>
+   <li><a role="button">Something else here</a></li>
+   <li role="separator" class="divider"></li>
+   <li><a role="button">Separated link</a></li>
+ </template>
+    </dropdown>
+    <btn @click="confirm" type="primary">Click to open a confirm modal</btn>
+    <btn v-tooltip="'Static tooltip content goes here'" type="primary">Hover me!</btn>
+
+    <btn type="primary" id="btn">Popover</btn>
+    <popover title="Title" target="#btn">
+      <template slot="popover">
+        <h1>Hello world!</h1>
+      </template>
+    </popover>
+    ***
+    <btn @click="alert" type="primary">Click to open an alert modal</btn>
+    ***
+    <multi-select v-model="selected" :options="options" />
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <script src="https://unpkg.com/http-vue-loader"></script>
+  <script src="https://unpkg.com/uiv"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      components: {
+        'my-navbar': httpVueLoader('../appa01/components/my-navbar.vue'),
+        'my-title': httpVueLoader('../appa01/components/my-title.vue')
+      },
+      data: {
+        title: 'APPA01 - 基本環境建置',
+        show: false,
+        selected: [],
+        options: [{
+            value: 1,
+            label: 'Option1'
+          },
+          {
+            value: 2,
+            label: 'Option2'
+          },
+          {
+            value: 3,
+            label: 'Option3'
+          },
+          {
+            value: 4,
+            label: 'Option4'
+          },
+          {
+            value: 5,
+            label: 'Option5'
+          }
+        ]
+      },
+      computed: {},
+      methods: {
+        confirm() {
+          this.$confirm({
+              title: 'Confirm',
+              content: 'This item will be permanently deleted. Continue?'
+            })
+            .then(() => {
+              this.$notify({
+                type: 'success',
+                content: 'Delete completed.'
+              })
+            })
+            .catch(() => {
+              this.$notify('Delete canceled.')
+            })
+        },
+        alert() {
+          this.$alert({
+            title: 'Title',
+            content: 'This is an alert message.'
+          }, (msg) => {
+            // callback after modal dismissed
+            this.$notify(`You selected ${msg}.`)
+          })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
