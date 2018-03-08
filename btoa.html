@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Demo</title>
+</head>
+
+<body>
+
+  <hr> 原始內容<br>
+  <textarea rows="6" cols="80" id='input'></textarea>
+  <hr>
+  <button id='btn_run'>RUN</button>
+  <hr> 壓縮後<br>
+  <textarea rows="6" cols="80" id='lzma_compress'></textarea>
+  <hr> 再進行編碼<br>
+  <textarea rows="6" cols="80" id='lzma_compress_encode'></textarea>
+  <hr> 解碼後再進行解壓<br>
+  <textarea rows="6" cols="80" id='lzma_decompress'></textarea>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="http://lzma-js.github.io/LZMA-JS/src/lzma_worker.js"></script>
+  <script>
+    var compression_mode = 6;
+    var my_lzma = LZMA; /// lzma_worker.js creates a global LZMA object. We store it as a new variable just to match simple_demo.html.
+
+    $("#btn_run").click(function(event) {
+      event.preventDefault();
+
+      my_lzma.compress($('#input').val(), compression_mode, function on_compress_complete(result) {
+        $('#lzma_compress').val(result);
+        $('#lzma_compress_encode').val(window.btoa($('#lzma_compress').val()));
+        // 要轉成陣列資料才能解壓縮
+        var array = JSON.parse("[" + window.atob($('#lzma_compress_encode').val()) + "]");
+        my_lzma.decompress(array, function on_decompress_complete(result1) {
+          $('#lzma_decompress').val(result1);
+        }, function on_decompress_progress_update(percent1) {});
+      }, function on_compress_progress_update(percent) {});
+
+
+      //$('#btoa').val(window.btoa(encodeURIComponent($('#input').val())));
+      //$('#atob').val(decodeURIComponent(window.atob($('#btoa').val())));
+    });
+  </script>
+</body>
+
+</html>
