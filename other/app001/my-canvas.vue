@@ -14,6 +14,14 @@ module.exports = {
       provider: {
         // This is the CanvasRenderingContext that children will draw to.
         context: null
+      },
+      settings: {
+        currentFloor: 'B2F',
+        floors: [{
+          floor: 'B2f',
+          width: 1052,
+          height: 1489,
+        }]
       }
     }
   },
@@ -30,12 +38,6 @@ module.exports = {
     // Once we have it, provide it to all child components.
     this.provider.context = this.$refs['my-canvas'].getContext('2d')
 
-    var img = new Image();
-    var ctx = this.provider.context;
-    img.onload = function() {
-      ctx.drawImage(img, 0, 0);
-    };
-    img.src = 'images/002.png';
     // Resize the canvas to fit its parent's width.
     // Normally you'd use a more flexible resize system.
     //this.$refs['my-canvas'].width = this.$refs['my-canvas'].parentElement.clientWidth

@@ -1,10 +1,6 @@
 <script>
 // Note how there's no template or styles in this component.
 
-// Helper functions to convert a percentage of canvas area to pixels.
-const percentWidthToPix = (percent, ctx) => Math.floor((ctx.canvas.width / 100) * percent)
-const percentHeightToPix = (percent, ctx) => Math.floor((ctx.canvas.height / 100) * percent)
-
 module.exports = {
   // Gets us the provider property from the parent <my-canvas> component.
   inject: ['provider'],
@@ -52,27 +48,34 @@ module.exports = {
         y: null,
         w: null,
         h: null
-      }
+      },
+      pois: [{
+        name: 'A01',
+        status: 'Y',
+        selected: false,
+        type: '1P',
+        x: 242,
+        y: 196
+      }, {
+        name: 'A02',
+        status: 'Y',
+        selected: false,
+        type: '1P',
+        x: 270,
+        y: 196
+      }, {
+        name: 'A03',
+        status: 'N',
+        selected: false,
+        type: '1P',
+        x: 303,
+        y: 196
+      }]
     }
   },
 
   computed: {
-    calculatedBox() {
-      const ctx = this.provider.context
 
-      // Turn start / end percentages into x, y, width, height in pixels.
-      const calculated = {
-        x: percentWidthToPix(this.x1, ctx),
-        y: percentHeightToPix(this.y1, ctx),
-        w: percentWidthToPix(this.x2 - this.x1, ctx),
-        h: percentHeightToPix(this.y2 - this.y1, ctx)
-      }
-
-      // Yes yes, side-effects. This lets us cache the box dimensions of the previous render.
-      // before we re-calculate calculatedBox the next render.
-      this.oldBox = calculated
-      return calculated
-    }
   },
 
   render() {
@@ -81,27 +84,35 @@ module.exports = {
     if (!this.provider.context) return;
     const ctx = this.provider.context;
 
-    // Keep a reference to the box used in the previous render call.
-    const oldBox = this.oldBox
-    // Calculate the new box. (Computed properties update on-demand.)
-    const newBox = this.calculatedBox
+    var img = new Image();
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
 
-    ctx.beginPath();
-    // Clear the old area from the previous render.
-    ctx.clearRect(oldBox.x, oldBox.y, oldBox.w, oldBox.h);
-    // Clear the area for the text.
-    ctx.clearRect(newBox.x, newBox.y - 42, newBox.w, 100);
+      // 繪製點點
+      this.pois.forEach((poi, key) => {
+        console.log(key + ": " + poi);
+        //ctx.beginPath();
+        //ctx.arc(poi.x, poi.y, 10, 0, 2 * Math.PI, false);
+        //ctx.fillStyle = poi.status == 'Y' ? 'green' : 'red';
+        //ctx.fill();
+        //ctx.lineWidth = 1;
+        //ctx.strokeStyle = '#003300';
+        //ctx.stroke();
 
-    // Draw the new rectangle.
-    ctx.rect(newBox.x, newBox.y, newBox.w, newBox.h);
-    ctx.fillStyle = this.color;
-    ctx.fill();
+        var w = 25;
+        var h = 65;
+        ctx.globalAlpha = 0.2;
+        ctx.fillStyle="#FF0000";
+        ctx.fillRect(poi.x, poi.y, w, h);
+        ctx.globalAlpha = 1.0;
 
-    // Draw the text
-    ctx.fillStyle = '#000'
-    ctx.font = '28px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(Math.floor(this.value), (newBox.x + (newBox.w / 2)), newBox.y - 14)
+      });
+
+    };
+    img.src = 'images/002.png';
+
+
   }
+
 }
 </script>

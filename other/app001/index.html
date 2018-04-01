@@ -38,7 +38,7 @@
   <div id="app">
     <h1>{{ message }}</h1>
     <my-canvas style="width: 100%; height: 600px;">
-      <my-box v-for="obj, index of chartValues" :x1="((index / chartValues.length) * 100)" :x2="((index / chartValues.length) * 100) + (100 / chartValues.length)" :y1="100" :y2="100 - obj.val" :color="obj.color" :value="obj.val">
+      <my-box>
       </my-box>
     </my-canvas>
 
