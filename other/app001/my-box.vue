@@ -4,51 +4,10 @@
 module.exports = {
   // Gets us the provider property from the parent <my-canvas> component.
   inject: ['provider'],
-
-  props: {
-    // Start coordinates (percentage of canvas dimensions).
-    x1: {
-      type: Number,
-      default: 0
-    },
-    y1: {
-      type: Number,
-      default: 0
-    },
-
-    // End coordinates (percentage of canvas dimensions).
-    x2: {
-      type: Number,
-      default: 0
-    },
-    y2: {
-      type: Number,
-      default: 0
-    },
-
-    // The value to display.
-    value: {
-      type: Number,
-      defualt: 0
-    },
-
-    // The color of the box.
-    color: {
-      type: String,
-      default: '#F00'
-    }
-  },
-
+  props: {},
   data() {
     return {
-      // We cache the dimensions of the previous
-      // render so that we can clear the area later.
-      oldBox: {
-        x: null,
-        y: null,
-        w: null,
-        h: null
-      },
+      img: new Image(),
       pois: [{
         name: 'A01',
         status: 'Y',
@@ -70,49 +29,138 @@ module.exports = {
         type: '1P',
         x: 303,
         y: 196
+      }, {
+        name: 'A03',
+        status: 'N',
+        selected: false,
+        type: '1P',
+        x: 330,
+        y: 196
+      }, {
+        name: 'A03',
+        status: 'N',
+        selected: false,
+        type: '1P',
+        x: 355,
+        y: 196
+      }, {
+        name: 'A03',
+        status: 'N',
+        selected: false,
+        type: '1P',
+        x: 393,
+        y: 196
+      }, {
+        name: 'A03',
+        status: 'N',
+        selected: false,
+        type: '1P',
+        x: 423,
+        y: 196
+      }, {
+        name: 'A03',
+        status: 'N',
+        selected: true,
+        type: '1P',
+        x: 450,
+        y: 196
+      }, {
+        name: 'A03',
+        status: 'N',
+        selected: false,
+        type: '1L',
+        x: 136,
+        y: 316
+      }, {
+        name: 'A03',
+        status: 'N',
+        selected: false,
+        type: '1L',
+        x: 136,
+        y: 450
       }]
     }
   },
-
   computed: {
 
   },
+  methods: {
 
-  render() {
-    // Since the parent canvas has to mount first, it's *possible* that the context may not be
-    // injected by the time this render function runs the first time.
-    if (!this.provider.context) return;
-    const ctx = this.provider.context;
-
-    var img = new Image();
-    img.onload = () => {
-      ctx.drawImage(img, 0, 0);
+    paint() {
+      if (!this.provider.context) return;
+      const ctx = this.provider.context;
+      ctx.drawImage(this.img, 0, 0);
 
       // 繪製點點
       this.pois.forEach((poi, key) => {
-        console.log(key + ": " + poi);
-        //ctx.beginPath();
-        //ctx.arc(poi.x, poi.y, 10, 0, 2 * Math.PI, false);
-        //ctx.fillStyle = poi.status == 'Y' ? 'green' : 'red';
-        //ctx.fill();
-        //ctx.lineWidth = 1;
-        //ctx.strokeStyle = '#003300';
-        //ctx.stroke();
-
         var w = 25;
         var h = 65;
+        if (poi.type === '1L') {
+          w = 65;
+          h = 25;
+        }
+
+        if (poi.status === 'Y') {
+          ctx.fillStyle = "#000000";
+        } else {
+          ctx.fillStyle = "#00FF00";
+        }
         ctx.globalAlpha = 0.2;
-        ctx.fillStyle="#FF0000";
         ctx.fillRect(poi.x, poi.y, w, h);
         ctx.globalAlpha = 1.0;
 
+        if (poi.selected) {
+          ctx.beginPath();
+          ctx.lineWidth = "4";
+          ctx.strokeStyle = "#F0AD4E";
+          ctx.rect(poi.x, poi.y, w, h);
+          ctx.stroke();
+        }
+      });
+    }
+  },
+  render() {
+    // Since the parent canvas has to mount first, it's *possible* that the context may not be
+    // injected by the time this render function runs the first time.
+
+    // 加入滑鼠事件
+    if (!this.provider.context) return;
+    const ctx = this.provider.context;
+    this.provider.canvas.addEventListener('click', (evt) => {
+      var rect = this.provider.canvas.getBoundingClientRect();
+      console.log('Mouse position: ' + (evt.clientX - rect.left) + ',' + (evt.clientY - rect.top));
+
+      var mouse = {
+        x: (evt.clientX - rect.left),
+        y: (evt.clientY - rect.top),
+      }
+
+      this.pois.forEach((poi, key) => {
+        poi.selected = false;
       });
 
+      this.pois.forEach((poi, key) => {
+        var w = 25;
+        var h = 65;
+        if (poi.type === '1L') {
+          w = 65;
+          h = 25;
+        }
+        if ((poi.x <= mouse.x && mouse.x <= poi.x + w) &&
+          (poi.y <= mouse.y && mouse.y <= poi.y + h)) {
+          console.log(poi.name);
+          poi.selected = true;
+        }
+      });
+
+      this.paint();
+
+    }, false);
+
+    this.img.onload = () => {
+      this.paint();
     };
-    img.src = 'images/002.png';
-
-
+    this.img.src = 'images/002.png';
   }
-
 }
 </script>

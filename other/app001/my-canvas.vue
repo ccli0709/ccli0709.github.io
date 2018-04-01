@@ -36,6 +36,7 @@ module.exports = {
   mounted() {
     // We can't access the rendering context until the canvas is mounted to the DOM.
     // Once we have it, provide it to all child components.
+    this.provider.canvas = this.$refs['my-canvas']
     this.provider.context = this.$refs['my-canvas'].getContext('2d')
 
     // Resize the canvas to fit its parent's width.
