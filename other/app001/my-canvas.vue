@@ -44,8 +44,10 @@ module.exports = {
     //this.$refs['my-canvas'].width = this.$refs['my-canvas'].parentElement.clientWidth
     //this.$refs['my-canvas'].height = this.$refs['my-canvas'].parentElement.clientHeight
 
-    this.$refs['my-canvas'].width = 1052
-    this.$refs['my-canvas'].height = 1489
+    //this.$refs['my-canvas'].width = 1052
+    //this.$refs['my-canvas'].height = 1489
+    this.$refs['my-canvas'].width = 3508
+    this.$refs['my-canvas'].height = 4963
   }
 }
 </script>

@@ -13,22 +13,22 @@ module.exports = {
         status: 'Y',
         selected: false,
         type: '1P',
-        x: 242,
-        y: 196
+        x: 808,
+        y: 653
       }, {
         name: 'A02',
         status: 'Y',
         selected: false,
         type: '1P',
-        x: 270,
-        y: 196
+        x: 897,
+        y: 653
       }, {
         name: 'A03',
         status: 'N',
         selected: false,
         type: '1P',
-        x: 303,
-        y: 196
+        x: 1020,
+        y: 653
       }, {
         name: 'A03',
         status: 'N',
@@ -93,8 +93,8 @@ module.exports = {
 
       // 繪製點點
       this.pois.forEach((poi, key) => {
-        var w = 25;
-        var h = 65;
+        var w = 82;
+        var h = 209;
         if (poi.type === '1L') {
           w = 65;
           h = 25;
@@ -140,8 +140,8 @@ module.exports = {
       });
 
       this.pois.forEach((poi, key) => {
-        var w = 25;
-        var h = 65;
+        var w = 82;
+        var h = 209;
         if (poi.type === '1L') {
           w = 65;
           h = 25;
