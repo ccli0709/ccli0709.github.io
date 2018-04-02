@@ -30,18 +30,14 @@
     // 預先載入會用到的元件, 遞迴時也不會重覆載入相同的內容
     // vue的檔案就是元件名稱, 意外發現不必再去設定components就可以運作
     httpVueLoader.register(Vue, 'my-canvas.vue');
-    httpVueLoader.register(Vue, 'my-box.vue');
   </script>
 </head>
 
 <body>
   <div id="app">
     <h1>{{ message }}</h1>
-    <my-canvas style="width: 100%; height: 600px;">
-      <my-box>
-      </my-box>
+    <my-canvas style="width: 800px; height: 600px; border: solid 1px">
     </my-canvas>
-
   </div>
   <script>
     var app = new Vue({
