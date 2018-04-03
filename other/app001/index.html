@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Bootstrap 101 Template</title>
+  <title>OTHER-APP001</title>
 
   <!-- Bootstrap -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -24,51 +24,107 @@
   <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
   <!-- UI元件 -->
-  <script src="https://unpkg.com/uiv"></script>
+  <script src="parking_garage/pois.js"></script>
   <!-- 主要程式(寫在自訂元件之後) -->
+  <script src="https://unpkg.com/uiv"></script>
   <script>
     // 預先載入會用到的元件, 遞迴時也不會重覆載入相同的內容
     // vue的檔案就是元件名稱, 意外發現不必再去設定components就可以運作
-    httpVueLoader.register(Vue, 'my-canvas.vue');
+    httpVueLoader.register(Vue, 'parking-garage.vue');
   </script>
 </head>
 
 <body>
-  <div id="app">
-    <h1>{{ message }}</h1>
-    <my-canvas canvas_floor='B2F' canvas_width='800'>
-    </my-canvas>
+  <div class="container" id='app'>
+    <div class="row">
+      <div class="col-lg-2">
+        <form>
+          <div class="form-group">
+            <label>樓層</label>
+            <select class="form-control" v-model='floor'>
+              <option value="B1F">B1F</option>
+              <option value="B2F" selected>B2F</option>
+              <option value="B3F">B3F</option>
+              <option value="B4F">B4F</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>車位編號</label>
+            <div class="input-group">
+              <input type="text" class="form-control" v-model='name'>
+              <div class="input-group-btn">
+                <button class="btn btn-info" v-on:click.prevent='query()'>
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+          <div class="form-group">
+            <label>租用人</label>
+            <input type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>租約期限</label>
+            <input type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>月費</label>
+            <input type="text" class="form-control">
+          </div>
+          <button class="btn btn-warning" v-on:click.prevent='set()'>
+            模擬載入車位租用資訊
+          </button>
+        </form>
+      </div>
+      <div class="col-lg-10">
+        <parking-garage :canvas_floor='floor' canvas_width='800' :bus='bus_parking_garage' v-on:poi_selected="parking_garage_poi_selected">
+        </parking-garage>
+      </div>
+    </div>
   </div>
   <script>
     var app = new Vue({
       el: '#app',
       data: {
-        message: 'Hello Vue!',
-        chartValues: [{
-            val: 24,
-            color: 'red'
-          },
-          {
-            val: 32,
-            color: '#0f0'
-          },
-          {
-            val: 66,
-            color: 'rebeccapurple'
-          },
-          {
-            val: 1,
-            color: 'green'
-          },
-          {
-            val: 28,
-            color: 'blue'
-          },
-          {
-            val: 60,
-            color: 'rgba(150, 100, 0, 0.2)'
-          }
-        ]
+        name: '',
+        floor: 'B2F',
+        bus_parking_garage: new Vue(),
+      },
+      methods: {
+        parking_garage_poi_selected: function(data) {
+          this.name = data.name;
+        },
+        query: function() {
+          var vm = this;
+          this.bus_parking_garage.$emit('query', {
+            'name': vm.name
+          });
+        },
+        set: function() {
+
+          // Y:車位可租用
+          // O:車位已租用
+          // B:車位可預約
+          // X:車位未開放
+          var data = [{
+            name: '405',
+            status: 'Y'
+          }, {
+            name: '482',
+            status: 'Y'
+          }, {
+            name: '473',
+            status: 'O'
+          }, {
+            name: '477',
+            status: 'B'
+          }, {
+            name: '496',
+            status: 'B'
+          }, ];
+          this.bus_parking_garage.$emit('set', data);
+        }
       }
     })
   </script>

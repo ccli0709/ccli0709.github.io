@@ -1,0 +1,57 @@
+var parking_garage_pois = [{
+    floor: "B1F",
+    pois: []
+}, {
+    floor: "B2F",
+    pois: [
+      {name: '401',type: '1L',x: 933,y: 1355},
+      {name: '402',type: '1L',x: 933,y: 1264},
+      {name: '403',type: '1L',x: 933,y: 1171},
+      {name: '404',type: '1L',x: 1050,y: 1080},
+      {name: '405',type: '1L',x: 1154,y: 1172},
+      {name: '406',type: '1L',x: 1154,y: 1265},
+      {name: '407',type: '1L',x: 1154,y: 1355},
+      {name: '418',type: '1L',x: 1594,y: 1445},
+      {name: '419',type: '1L',x: 1594,y: 1355},
+      {name: '420',type: '1L',x: 1594,y: 1263},
+      {name: '421',type: '1L',x: 1594,y: 1173},
+      {name: '422',type: '1L',x: 1705,y: 1080},
+      {name: '423',type: '1L',x: 1813,y: 1172},
+      {name: '424',type: '1L',x: 1813,y: 1263},
+      {name: '425',type: '1L',x: 1813,y: 1355},
+      {name: '470',type: '1L',x: 455,y: 1672},
+      {name: '471',type: '1L',x: 455,y: 1582},
+      {name: '472',type: '1L',x: 455,y: 1500},
+      {name: '473',type: '1L',x: 455,y: 1358},
+      {name: '474',type: '1L',x: 455,y: 1266},
+      {name: '475',type: '1L',x: 455,y: 1174},
+      {name: '476',type: '1L',x: 455,y: 1052},
+      {name: '477',type: '1P',x: 808,y: 655},
+      {name: '478',type: '1P',x: 899,y: 655},
+      {name: '479',type: '1P',x: 1018,y: 655},
+      {name: '480',type: '1P',x: 1101,y: 655},
+      {name: '481',type: '1P',x: 1183,y: 655},
+      {name: '482',type: '1P',x: 1319,y: 655},
+      {name: '483',type: '1P',x: 1410,y: 655},
+      {name: '484',type: '1P',x: 1501,y: 655},
+      {name: '485',type: '1P',x: 1643,y: 655},
+      {name: '486',type: '1P',x: 1728,y: 655},
+      {name: '487',type: '1P',x: 1813,y: 655},
+      {name: '488',type: '1P',x: 1899,y: 655},
+      {name: '489',type: '1P',x: 2045,y: 655},
+      {name: '490',type: '1P',x: 2135,y: 655},
+      {name: '491',type: '1P',x: 2226,y: 655},
+      {name: '492',type: '1P',x: 2363,y: 655},
+      {name: '493',type: '1P',x: 2440,y: 655},
+      {name: '494',type: '1P',x: 2524,y: 655},
+      {name: '495',type: '1P',x: 2650,y: 655},
+      {name: '496',type: '1P',x: 2740,y: 655},
+      {name: '497',type: '1P',x: 2830,y: 655},
+    ]
+}, {
+    floor: "B3F",
+    pois: []
+}, {
+    floor: "B4F",
+    pois: []
+}];
