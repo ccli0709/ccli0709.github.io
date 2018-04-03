@@ -37,12 +37,22 @@ module.exports = {
         blocks: [{
           id: '1P',
           width: 80,
-          height: 205,
+          height: 210,
           desc: '汽車直式'
         }, {
           id: '1L',
-          width: 205,
+          width: 210,
           height: 80,
+          desc: '汽車橫式'
+        }, {
+          id: '2P',
+          width: 25,
+          height: 75,
+          desc: '汽車直式'
+        }, {
+          id: '2L',
+          width: 75,
+          height: 25,
           desc: '汽車橫式'
         }]
       },
