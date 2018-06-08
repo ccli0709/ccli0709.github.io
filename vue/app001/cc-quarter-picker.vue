@@ -1,20 +1,20 @@
 <template>
-<div class='main' @click="onPickerClick">
+<div class='main' v-on:click="onPickerClick">
 
-  <table class='table table-bordered'>
+  <table>
     <tr>
       <td class='form-inline'>
-        <btn size="sm" v-on:click="goPrevYear">
-          << </btn>
-            <btn data-action="select">
-              {{ year }}
-            </btn>
-            <btn size="sm" v-on:click="goNextYear">
-              >>
-            </btn>
+        <btn size="sm" v-on:click="onYearChange(-1)" style='border:none'>
+          <i class="fa fa-chevron-left"></i> </btn>
+        <btn data-action="select">
+          {{ currentYear }}
+        </btn>
+        <btn size="sm" v-on:click="onYearChange(1)" style='border:none'>
+          <i class="fa fa-chevron-right"></i>
+        </btn>
       </td>
       <td>
-        <select class='form-control' v-model='quarter'>
+        <select class='form-control' v-model='currentQuarter' v-on:change="onCurrentValChange">
           <option>Q1</option>
           <option>Q2</option>
           <option>Q3</option>
@@ -28,34 +28,51 @@
 
 <script>
 module.exports = {
-  props: ['yearQuarter'],
+  props: ['value'],
   data: function() {
     return {
-      year: 2018,
-      quarter: 'Q1'
+      currentYear: 2018,
+      currentQuarter: 'Q1'
     }
   },
   methods: {
-    goPrevYear: function() {
-      this.year = this.year - 1;
+    setYearAndQuarterByValue(val, oldVal) {
+      console.log("setYearAndQuarterByValue");
+      val = val.trim();
+      if (val.length === 6) {
+        this.currentYear = val.substr(0, 4);
+        this.currentQuarter = val.substr(4, 2);
+
+        console.log(this.currentYear);
+        console.log(this.currentQuarter);
+      } else {
+        this.$emit('input', oldVal || '')
+      }
     },
-    goNextYear: function() {
-      this.year = this.year + 1;
+    onYearChange: function(variable) {
+
+      var now = new Date();
+      var year = now.getFullYear();
+      if (!isNaN(this.currentYear)) {
+        year = parseInt(this.currentYear);
+      }
+      year += variable;
+      this.currentYear = year.toString();
+
+      this.onCurrentValChange();
+    },
+    onCurrentValChange: function() {
+      this.$emit('input', this.currentYear + this.currentQuarter);
     },
     onPickerClick: function(event) {
-      console.log(event);
-      console.log(event.target.getAttribute('data-action'));
       if (event.target.getAttribute('data-action') !== 'select') {
         event.stopPropagation()
       }
     }
   },
   watch: {
-    year: function(val, oldVal) {
-      this.$emit('input', '' + this.year + this.quarter);
-    },
-    quarter: function(val, oldVal) {
-      this.$emit('input', '' + this.year + this.quarter);
+    value(val, oldVal) {
+      this.setYearAndQuarterByValue(val, oldVal)
     }
   },
   mounted: function() {
@@ -64,7 +81,16 @@ module.exports = {
 }
 </script>
 <style>
-.main {
-  padding: 1rem;
+div.main {
+  padding: 3px;
+
+}
+
+div.main table {
+  width: 100%;
+}
+
+div.main td {
+  padding: 8px;
 }
 </style>
