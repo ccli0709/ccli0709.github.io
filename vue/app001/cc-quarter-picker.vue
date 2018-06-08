@@ -1,6 +1,5 @@
 <template>
 <div class='main' v-on:click="onPickerClick">
-
   <table>
     <tr>
       <td class='form-inline'>
@@ -36,7 +35,7 @@ module.exports = {
     }
   },
   methods: {
-    setYearAndQuarterByValue(val, oldVal) {
+    setYearAndQuarterByValue: function(val, oldVal) {
       console.log("setYearAndQuarterByValue");
       val = val.trim();
       if (val.length === 6) {
@@ -71,7 +70,7 @@ module.exports = {
     }
   },
   watch: {
-    value(val, oldVal) {
+    value: function(val, oldVal) {
       this.setYearAndQuarterByValue(val, oldVal)
     }
   },
@@ -83,7 +82,6 @@ module.exports = {
 <style>
 div.main {
   padding: 3px;
-
 }
 
 div.main table {
