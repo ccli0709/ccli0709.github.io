@@ -5,9 +5,7 @@
       <td class='form-inline'>
         <btn size="sm" v-on:click="onYearChange(-1)" style='border:none'>
           <i class="fa fa-chevron-left"></i> </btn>
-        <btn data-action="select">
-          {{ currentYear }}
-        </btn>
+        <span v-html='currentYear'></span>
         <btn size="sm" v-on:click="onYearChange(1)" style='border:none'>
           <i class="fa fa-chevron-right"></i>
         </btn>
@@ -36,25 +34,21 @@ module.exports = {
   },
   methods: {
     setYearAndQuarterByValue: function(val, oldVal) {
-      console.log("setYearAndQuarterByValue");
       val = val.trim();
       if (val.length === 6) {
         this.currentYear = val.substr(0, 4);
-        this.currentQuarter = val.substr(4, 2);
-
-        console.log(this.currentYear);
-        console.log(this.currentQuarter);
-      } else {
-        this.$emit('input', oldVal || '')
+        this.currentQuarter = val.substr(4, 2).toUpperCase();
+        var patt = new RegExp("Q1|Q2|Q3|Q4");
+        if(!patt.test(this.currentQuarter))
+          this.currentQuarter = 'Q1';
       }
     },
     onYearChange: function(variable) {
-
       var now = new Date();
       var year = now.getFullYear();
-      if (!isNaN(this.currentYear)) {
+      if (!isNaN(this.currentYear))
         year = parseInt(this.currentYear);
-      }
+
       year += variable;
       this.currentYear = year.toString();
 
@@ -71,11 +65,11 @@ module.exports = {
   },
   watch: {
     value: function(val, oldVal) {
+      console.log('watch');
       this.setYearAndQuarterByValue(val, oldVal)
     }
   },
   mounted: function() {
-
   }
 }
 </script>
