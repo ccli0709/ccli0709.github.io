@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>VUE-APP002</title>
+
+  <!-- Bootstrap -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"> -->
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!-- VUE基本元件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+  <script src="https://unpkg.com/http-vue-loader"></script>
+  <!-- AJAX元件 -->
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+  <!-- UI元件 -->
+  <!-- 主要程式(寫在自訂元件之後) -->
+  <script src="https://unpkg.com/uiv"></script>
+
+  <!-- FAILED -->
+  <script src="https://cdn.jsdelivr.net/npm/vue-js-toggle-button@1.2.3/dist/index.min.js"></script>
+  <!--TEST -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/pretty-checkbox-vue@1.1/dist/pretty-checkbox-vue.min.js"></script>
+  <script>
+    // 預先載入會用到的元件, 遞迴時也不會重覆載入相同的內容
+    // vue的檔案就是元件名稱, 意外發現不必再去設定components就可以運作
+    // httpVueLoader.register(Vue, 'cc-quarter-picker.vue');
+
+    // FAILED
+    //Vue.use(ToggleButton);
+    Vue.use(PrettyCheckbox);
+  </script>
+  <style>
+  </style>
+</head>
+
+<body>
+  <div class="container" id='app'>
+    <a href='https://hamed-ehtesham.github.io/pretty-checkbox-vue/#radio'>參考來源</a>
+    <!--<toggle-button :value="false" color="#82C7EB" :sync="true" :labels="true" />-->
+    <p-radio class="p-switch" name="switch1" color="success">Summer</p-radio>
+    <p-radio class="p-switch p-fill" name="switch1" color="success">Winter</p-radio>
+    <p-radio class="p-switch p-slim" name="switch1" color="success">Fall</p-radio>
+
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        date: '2018-01-01',
+        yearQuarter: '',
+        myDataVariable: false
+      },
+      methods: {}
+    })
+  </script>
+</body>
+
+</html>
