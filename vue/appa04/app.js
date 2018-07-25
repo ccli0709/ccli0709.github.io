@@ -57,6 +57,7 @@ $(function () {
             center: 'title',
             right: 'month,basicWeek,agendaDay',
         },
+        aspectRatio: 1,
         defaultDate: '2018-03-12',
         navLinks: true, // can click day/week names to navigate views
         editable: true,
