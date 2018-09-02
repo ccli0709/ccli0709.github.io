@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hit Counter</title>
+</head>
+
+<body>
+  <h1>Hit Counter</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDermBP9P5Vwz5q6vW3vZY8chU35ebtAG0",
+      authDomain: "hitcounter-91540.firebaseapp.com",
+      databaseURL: "https://hitcounter-91540.firebaseio.com",
+      projectId: "hitcounter-91540",
+      storageBucket: "hitcounter-91540.appspot.com",
+      messagingSenderId: "2312957924"
+    };
+    firebase.initializeApp(config);
+
+    const rootRef = firebase.database().ref();
+    const pageCountsRef = rootRef.child('pageCounts');
+    let getHistory = new Promise(function (resolve, reject) {
+      let obj = {};
+      pageCountsRef.orderByChild('page').equalTo(location.pathname).once('value', function (snapshot) {
+        snapshot.forEach(function (child) {
+          obj = {
+            key: child.key,
+            count: child.val().count
+          };
+        });
+        // if (!obj.key) {
+        //   pageCountsRef.push(postData);
+        // } else {
+        //   console.log(obj.key);
+        //   console.log(obj.count);
+        // }
+        if (obj) {
+          resolve(obj);
+        } else {
+          reject(error);
+        }
+      });
+    });
+
+    getHistory.then(function (fromResolve) {
+      var key = fromResolve.key;
+      var pastCount = fromResolve.count;
+      if (!key) {
+        key = pageCountsRef.push().key;
+        pastCount = 0;
+      }
+
+      var postData = {
+        page: location.pathname,
+        count: pastCount + 1,
+        lastVisit: firebase.database.ServerValue.TIMESTAMP,
+        lastReferrer: document.referrer
+      };
+      //pageCountsRef.push(postData);
+
+      var postDatas = {};
+      postDatas['/pageCounts/' + key] = postData;
+      rootRef.update(postDatas);
+    }).catch(function (fromReject) {
+      console.log(error);
+    });
+  </script>
+</body>
+
+</html>
