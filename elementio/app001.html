@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+</head>
+
+<body>
+    <div id="app">
+        <cc-da-layout>
+            <template slot="header">
+                <h1>我是主程式的嘿德</h1>
+            </template>
+            <template slot="main">
+                <h1>我是主程式的麵</h1>
+                <table class='table'>
+                    <thead>
+                        <tr>
+                            <th>程式代號</th>
+                            <th>程式名稱</th>
+                            <th>開工日期</th>
+                            <th>完工日期</th>
+                            <th>系統負責人</th>
+                            <th>系統負責人</th>
+                            <th>程式開發人</th>
+                            <th>程式開發人</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for='item in items'>
+                            <td v-html='item.progId'></td>
+                            <td v-html='item.progName'></td>
+                            <td v-html='item.beginDate'></td>
+                            <td v-html='item.endDate'></td>
+                            <td v-html='item.ownerId'></td>
+                            <td v-html='item.ownerName'></td>
+                            <td v-html='item.developerId'></td>
+                            <td v-html='item.developerName'></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </template>
+
+        </cc-da-layout>
+    </div>
+</body>
+<!-- import Vue before Element -->
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- VUE基本元件 -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="https://unpkg.com/http-vue-loader"></script>
+<!-- AJAX元件 -->
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+    httpVueLoader.register(Vue, 'cc-da-layout.vue');
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                items: [{
+                    progId: 'AA01',
+                    progName: '測試專案',
+                    beginDate: '2017/01/01',
+                    endDate: '2017/03/01',
+                    ownerId: '0000-170134',
+                    ownerName: '李粗忠',
+                    developerId: '0000-XXXXXX',
+                    developerName: '李莫忘',
+                }, {
+                    progId: 'AA01',
+                    progName: '測試專案',
+                    beginDate: '2017/01/01',
+                    endDate: '2017/03/01',
+                    ownerId: '0000-170134',
+                    ownerName: '李粗忠',
+                    developerId: '0000-XXXXXX',
+                    developerName: '李莫忘',
+                }, {
+                    progId: 'AA01',
+                    progName: '測試專案',
+                    beginDate: '2017/01/01',
+                    endDate: '2017/03/01',
+                    ownerId: '0000-170134',
+                    ownerName: '李粗忠',
+                    developerId: '0000-XXXXXX',
+                    developerName: '李莫忘',
+                }, {
+                    progId: 'AA01',
+                    progName: '測試專案',
+                    beginDate: '2017/01/01',
+                    endDate: '2017/03/01',
+                    ownerId: '0000-170134',
+                    ownerName: '李粗忠',
+                    developerId: '0000-XXXXXX',
+                    developerName: '李莫忘',
+                }, {
+                    progId: 'AA01',
+                    progName: '測試專案',
+                    beginDate: '2017/01/01',
+                    endDate: '2017/03/01',
+                    ownerId: '0000-170134',
+                    ownerName: '李粗忠',
+                    developerId: '0000-XXXXXX',
+                    developerName: '李莫忘',
+                }, {
+                    progId: 'AA01',
+                    progName: '測試專案',
+                    beginDate: '2017/01/01',
+                    endDate: '2017/03/01',
+                    ownerId: '0000-170134',
+                    ownerName: '李粗忠',
+                    developerId: '0000-XXXXXX',
+                    developerName: '李莫忘',
+                }, {
+                    progId: 'AA01',
+                    progName: '測試專案',
+                    beginDate: '2017/01/01',
+                    endDate: '2017/03/01',
+                    ownerId: '0000-170134',
+                    ownerName: '李粗忠',
+                    developerId: '0000-XXXXXX',
+                    developerName: '李莫忘',
+                }, {
+                    progId: 'AA01',
+                    progName: '測試專案',
+                    beginDate: '2017/01/01',
+                    endDate: '2017/03/01',
+                    ownerId: '0000-170134',
+                    ownerName: '李粗忠',
+                    developerId: '0000-XXXXXX',
+                    developerName: '李莫忘',
+                }, {
+                    progId: 'AA01',
+                    progName: '測試專案',
+                    beginDate: '2017/01/01',
+                    endDate: '2017/03/01',
+                    ownerId: '0000-170134',
+                    ownerName: '李粗忠',
+                    developerId: '0000-XXXXXX',
+                    developerName: '李莫忘',
+                }, {
+                    progId: 'AA01',
+                    progName: '測試專案',
+                    beginDate: '2017/01/01',
+                    endDate: '2017/03/01',
+                    ownerId: '0000-170134',
+                    ownerName: '李粗忠',
+                    developerId: '0000-XXXXXX',
+                    developerName: '李莫忘',
+                }, {
+                    progId: 'AA01',
+                    progName: '測試專案',
+                    beginDate: '2017/01/01',
+                    endDate: '2017/03/01',
+                    ownerId: '0000-170134',
+                    ownerName: '李粗忠',
+                    developerId: '0000-XXXXXX',
+                    developerName: '李莫忘',
+                }, ]
+            };
+        }
+    });
+</script>
+
+</html>
