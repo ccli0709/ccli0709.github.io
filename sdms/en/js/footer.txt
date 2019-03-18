@@ -14,7 +14,7 @@
                     <span class="flaticon-global"></span>
                   </div>
                   <div class="text">
-                    <p>14F., No. 88, Chenggong 2nd Rd., Qianzhen Dist., Kaohsiung City 806, Taiwan (R.O.C.)</p>
+                    <p>高雄市前鎮區成功二路88號14樓</p>
                   </div>
                 </li>
                 <li>
@@ -22,7 +22,7 @@
                     <span class="flaticon-phone"></span>
                   </div>
                   <div class="text">
-                    <p>+886 (7) 337-1111</p>
+                    <p>07-337-1111 #22356</p>
                   </div>
                 </li>
               </ul>
@@ -37,14 +37,14 @@
           <h3>Quick Links</h3>
         </div>
         <ul class="quick-links">
-          <li><a href="news.html"><i class="fa fa-angle-double-right"></i>News</a></li>
-          <li><a href="about.html"><i class="fa fa-angle-double-right"></i>About Us</a></li>
-          <li><a href="csr.html"><i class="fa fa-angle-double-right"></i>CSR </a></li>
-          <!--<li><a href="quality.html"><i class="fa fa-angle-double-right"></i>QS Certification</a></li>
-          <li><a href="#"><i class="fa fa-angle-double-right"></i>Business Performance</a></li>-->
-          <li><a href="recruiting.html"><i class="fa fa-angle-double-right"></i>Careers</a></li>
-          <li><a href="contactUs.html"><i class="fa fa-angle-double-right"></i>Contact Us</a></li>
-          <li><a href="sitemap.html"><i class="fa fa-angle-double-right"></i>Sitemap</a></li>
+          <li><a href="news.html"><i class="fa fa-angle-double-right"></i>最新消息</a></li>
+          <li><a href="about.html"><i class="fa fa-angle-double-right"></i>認識興達海基</a></li>
+          <li><a href="csr.html"><i class="fa fa-angle-double-right"></i>企業社會責任</a></li>
+         <!-- <li><a href="quality.html"><i class="fa fa-angle-double-right"></i>品質系統認證</a></li>-->
+          <!--  <li><a href="#"><i class="fa fa-angle-double-right"></i>業務實績</a></li>-->
+          <li><a href="recruiting.html"><i class="fa fa-angle-double-right"></i>人才招募</a></li>
+          <li><a href="contactUs.html"><i class="fa fa-angle-double-right"></i>聯絡我們</a></li>
+          <li><a href="sitemap.html"><i class="fa fa-angle-double-right"></i>網站導覽</a></li>
         </ul>
       </div>
     </div>

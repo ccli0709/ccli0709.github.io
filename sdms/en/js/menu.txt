@@ -29,14 +29,14 @@
                           <li class="dropdown"><a id="a1" href="#" onclick="doClickEven('block')">About Us</a>
                             <ul id='ul1'>
                               <li><a href="about.html">Company Development</a></li>
-                              <li><a href="history.html">History</a></li>
+                              <li><a href="history.html">Milestones</a></li>
                               <li><a href="ProductionCapacity.html">Production Capacity</a></li>
                               <li><a href="TechnologyTransfer.html">Technology Transfer</a></li>
                             </ul>
                           </li>
                           <li><a href="csr.html">CSR</a></li>
                           <!--<li><a href="quality.html">QS Certification</a></li>
-                          <li><a href="#">Business Performance</a></li>-->
+                          <li><a href="#">Business Scope</a></li>-->
                           <li><a href="recruiting.html">Careers</a></li>
                           <li><a href="contactUs.html">Contact Us</a></li>
                           <li class="hidden-pc"><a href="../index.html">Chinese</a></li>

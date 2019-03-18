@@ -3,7 +3,7 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
       <div class="inner text-center">
         <div class="copyright-text">
-          <p>Copyright &copy; 2019 SINGDA MARINE STRUCTURE  All rights reserved. Designed by <a href="http://www.spadej.com.tw/" target="_blank">SpadeJ</a>.</p>
+          <p>Copyright &copy; 2019  Sing Da Marine Structure All rights reserved. Designed by <a href="http://www.spadej.com.tw/" target="_blank">SpadeJ</a>.</p>
         </div>
       </div>
     </div>
