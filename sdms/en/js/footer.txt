@@ -22,7 +22,7 @@
                     <span class="flaticon-phone"></span>
                   </div>
                   <div class="text">
-                    <p>+886 (7) 337-1111</p>
+                    <p>+886 (7) 337-1111#22356</p>
                   </div>
                 </li>
               </ul>
