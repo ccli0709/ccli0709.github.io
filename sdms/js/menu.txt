@@ -13,7 +13,7 @@
           <section class="mainmenu-area stricky">
             <div class="container">
               <div class="row">
-                <div class="col-xl-11 col-lg-11 col-md-12">
+                <div class="col-xl-12 col-lg-12 col-md-12">
                   <div class="inner-content">
                     <nav class="main-menu text-center clearfix">
                       <div class="navbar-header clearfix">
@@ -34,14 +34,16 @@
                               <li><a href="TechnologyTransfer.html">技術移轉</a></li>
                             </ul>
                           </li>
+                          <li><a href="business.html">業務範圍</a></li>
                           <li><a href="csr.html">企業社會責任</a></li>
                           <!--<li><a href="quality.html">品質系統認證</a></li>
                           <li><a href="#">業務實績</a></li>-->
                           <li><a href="recruiting.html">人才招募</a></li>
                           <li><a href="contactUs.html">聯絡我們</a></li>
-                          <!--
-						  <li class="hidden-pc"><a href="en/index.html">英文版</a></li>
-						  -->
+                          <li><a href="en/index.html">EN</a></li>
+
+						  <!--<li class="hidden-pc"><a href="en/index.html">英文版</a></li>-->
+
                         </ul>
                       </div>
                     </nav>
