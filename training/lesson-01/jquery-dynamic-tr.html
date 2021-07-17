@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>jquery-dynamic-tr</title>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <h1>jquery-dynamic-tr</h1>
+    <button class="btn btn-primary" id='clickme'>控制表格顯示/隱藏</button>
+    <div class="container">
+        <table class="table table-hover" id="main">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">單位</th>
+                    <th scope="col">工號</th>
+                    <th scope="col">姓名</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            $("#navbar").load("common-navbar.html");
+
+            // 初始靜態陣列資料
+            var datas = [
+                { "deptno": "A11", "empno": "SD1111", "cname": "林大年" },
+                { "deptno": "A12", "empno": "SD1112", "cname": "李大月" },
+                { "deptno": "A13", "empno": "SD1113", "cname": "王大有" },
+                { "deptno": "A21", "empno": "SD1114", "cname": "陳大魚" },
+                { "deptno": "A22", "empno": "SD1115", "cname": "許大快" },
+                { "deptno": "A23", "empno": "SD1116", "cname": "胡大樂" },
+            ];
+
+
+            // 逐行加入表格列資料
+            $.each(datas, function (key, val) {
+                $("#main").append('<tr>'
+                    + '<td>' + key + '</td>'
+                    + '<td>' + val.deptno + '</td>'
+                    + '<td>' + val.empno + '</td>'
+                    + '<td>' + val.cname + '</td>'
+                    + '</tr>');
+            });
+
+            // 加入按鈕事件
+            $('#clickme').click(function () {
+                $("#main").toggle();
+            });
+
+        });
+    </script>
+</body>
+
+</html>
