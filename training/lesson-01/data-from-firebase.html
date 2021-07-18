@@ -33,28 +33,48 @@
             </tbody>
         </table>
     </div>
+
     <!-- Optional JavaScript; choose one of the two! -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
         crossorigin="anonymous"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
     <script>
-        $(function () {
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDVx4zVVowQN0vqtYnoQyNMQwZEU0_F-yE",
+            authDomain: "sdms-d2235.firebaseapp.com",
+            databaseURL: "https://sdms-d2235.firebaseio.com",
+            projectId: "sdms-d2235",
+            storageBucket: "sdms-d2235.appspot.com",
+            messagingSenderId: "983762057456",
+            appId: "1:983762057456:web:46875e380f54a4654e6a35"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
-            $("#navbar").load("common-navbar.html");
+        // 讀取一次 once
+        database.ref('/users').once('value', e => {
+            console.log(e.val());
+            datas=e.val();
+            buildTable();
+        });
 
-            // 初始靜態陣列資料
-            var datas = [
-                { "deptno": "A11", "empno": "SD1111", "cname": "林大年" },
-                { "deptno": "A12", "empno": "SD1112", "cname": "李大月" },
-                { "deptno": "A13", "empno": "SD1113", "cname": "王大有" },
-                { "deptno": "A21", "empno": "SD1114", "cname": "陳大魚" },
-                { "deptno": "A22", "empno": "SD1115", "cname": "許大快" },
-                { "deptno": "A23", "empno": "SD1116", "cname": "胡大樂" },
-            ];
+    </script>
 
 
+    <script>
+        var datas = [];
+        function buildTable() {
             // 逐行加入表格列資料
             $.each(datas, function (key, val) {
                 $("#main").append('<tr>'
@@ -64,6 +84,12 @@
                     + '<td>' + val.cname + '</td>'
                     + '</tr>');
             });
+        }
+
+        $(function () {
+            $("#navbar").load("common-navbar.html");
+
+
 
             // 加入按鈕事件
             $('#clickme').click(function () {
