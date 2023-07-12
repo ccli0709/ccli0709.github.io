@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="css/sticky-footer.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>CASE CHART DEMO</h1>
+        </div>
+    </div>
+    <div id="app" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-8">.col-sm-8</div>
+            <div class="col-xs-2">.col-sm-2</div>
+            <div class="col-xs-2">.col-sm-2</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">.col-sm-8</div>
+            <div class="col-xs-2">.col-sm-2</div>
+            <div class="col-xs-2">.col-sm-2</div>
+        </div>
+
+        <canvas id="myChartBar" height="200" aria-label="銀行每月承做進出口金額(累計前五大)bar" role="img"></canvas>
+        <canvas id="myChart1" height="200" aria-label="銀行每月承做進出口金額(累計前五大)bar" role="img"></canvas>
+        <canvas id="myChart2" height="200" aria-label="銀行每月承做進出口金額(累計前五大)bar" role="img"></canvas>
+        <canvas id="myChart3" height="200" aria-label="銀行每月承做進出口金額(累計前五大)bar" role="img"></canvas>
+        <div>
+            <canvas id="myChart4"></canvas>
+        </div>
+        <div>
+            <canvas id="myChart5"></canvas>
+        </div>
+
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">Place sticky footer content here.</p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script>
+
+        // 使用DATALABLES的外掛。
+        Chart.register(ChartDataLabels);
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                data1: {
+                    labels: ['7月3日', '7月4日', '7月5日', '7月6日', '7月7日', '7月8日', '7月9日', '7月10日'],
+                    datasets: [{
+                        label: '內銷',
+                        data: [23, -13, 12, 5, 2, 3, -8, 5],
+                        borderWidth: 1,
+                        backgroundColor: "#FFD306"
+                    }, {
+                        label: '外銷',
+                        data: [12, 23, -1, 15, -2, 32, 5, -5],
+                        borderWidth: 1,
+                        backgroundColor: "#B15BFF"
+                    }]
+                },
+                dataMyChart1: {
+                    labels: ['鋼板', '棒線', '熱軋', '冷軋', '電磁鋼片', '電氣鍍鋅', '熱漏鍍鋅', '其他'],
+                    datasets: [{
+                        data: [76.82, 126.03, 31.71, -73.07, 127.06, -5.71, -29.67, 5.56],
+                        borderWidth: 1,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(255, 159, 64, 0.8)',
+                            'rgba(255, 205, 86, 0.8)',
+                            'rgba(75, 192, 192, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(153, 102, 255, 0.8)',
+                            'rgba(201, 203, 207, 0.8)'
+                        ]
+                    }]
+                }, dataMyChart2: {
+                    labels: ['7月1日', '7月2日', '7月3日', '7月4日', '7月5日', '7月6日', '7月7日', '7月8日', '7月9日', '7月10日', '7月11日', '7月12日'],
+                    datasets: [{
+                        label: '平均單位售價(元/噸)',
+                        data: [27, 13, 26.2, 24.8, 25, 23, 14.2, 26.8, 25, 12, 27.2, 12.8,],
+                        borderWidth: 1,
+                        borderColor: "#FFD306",
+                        backgroundColor: "#FFD306"
+                    }, {
+                        label: '平均單位售價(元/噸)',
+                        data: [21, 23, 22.2, 14.8, 27, 3, 24.2, 24.8, 25, 22, 21.2, 22.8,],
+                        borderWidth: 1,
+                        borderColor: "#B15BFF",
+                        backgroundColor: "#B15BFF"
+                    }]
+                }, dataMyChart3: {
+                    labels: ['7月1日', '7月2日', '7月3日', '7月4日', '7月5日', '7月6日', '7月7日', '7月8日', '7月9日', '7月10日', '7月11日', '7月12日'],
+                    datasets: [{
+                        label: '平均單位售價(元/噸)',
+                        data: [10, -5, 12.2, 2.8, 5, -9, 12.2, -5.8, -5, 21, 7.2, 12.8,],
+                        borderWidth: 1,
+                        borderColor: "#FF0000",
+                        backgroundColor: "#FF0000"
+
+                    }, {
+                        label: '',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+                        borderWidth: 1,
+                        borderColor: "#222222",
+                        backgroundColor: "#222222",
+                        point: {
+                            pointStyle: false
+                        }
+                    }]
+                },
+            },
+
+            mounted: function () {
+                var vm = this;
+                vm.showChart();
+            },
+
+            methods: {
+                init: function () {
+
+                },
+                showChart: function () {
+                    var vm = this;
+                    var ctxBar = document.getElementById('myChartBar');
+                    var ctxMyChart1 = document.getElementById('myChart1');
+                    var ctxMyChart2 = document.getElementById('myChart2');
+                    var ctxMyChart3 = document.getElementById('myChart3');
+
+                    new Chart(ctxBar, {
+                        type: 'bar',
+                        data: vm.data1,
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: {
+                                    stacked: true,
+                                },
+                                y: {
+                                    stacked: true,
+                                    ticks: {
+                                        callback: function (value, index, ticks) {
+                                            return value + ' 百萬';
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    padding: 0,
+                                    //position: 'left',
+                                    text: '當日累計或當日毛利$$$(內外銷別)(元)',
+                                },
+                                legend: {
+                                    display: true,
+                                    //position: 'left',
+                                    labels: {
+                                        textAlign: 'left',
+                                    }
+                                }, datalabels: {
+                                    display: true,
+                                    anchor: 'end',
+                                    clamp: false,
+                                    padding: 0,
+                                    backgroundColor: 'rgba(255, 255, 255, .6)',
+                                    color: 'rgba(0, 0, 0, .9)',
+                                    //align: 'end',
+                                    formatter: function (value, context) {
+                                        return value + '百萬';
+                                    }
+                                }
+                            }
+                        },
+
+                    });
+
+
+                    //=========================================
+                    new Chart(ctxMyChart1, {
+                        type: 'bar',
+                        data: vm.dataMyChart1,
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            scales: {
+                                x: {
+                                    ticks: {
+                                        callback: function (value, index, ticks) {
+                                            return value + '百萬';
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    padding: 0,
+                                    //position: 'left',
+                                    text: '大類鋼品銷貨毛利(元)',
+                                },
+                                legend: {
+                                    display: false,
+                                    //position: 'left',
+                                    labels: {
+                                        textAlign: 'left',
+                                    }
+                                }, datalabels: {
+                                    display: true,
+                                    anchor: 'end',
+                                    clamp: false,
+                                    align: 'start',
+                                    padding: 0,
+                                    backgroundColor: 'rgba(255, 255, 255, .6)',
+                                    color: 'rgba(0, 0, 0, .9)',
+                                    formatter: function (value, context) {
+                                        return value + '百萬';
+                                    }
+                                }
+                            }
+                        },
+
+                    });
+
+                    //=========================================
+                    new Chart(ctxMyChart2, {
+                        type: 'line',
+                        data: vm.dataMyChart2,
+                        options: {
+                            responsive: true,
+                            tension: 0.2,
+                            scales: {
+                                y: {
+                                    ticks: {
+                                        callback: function (value, index, ticks) {
+                                            return value + '千';
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    padding: 0,
+                                    //position: 'left',
+                                    text: '當月平均售價與成本',
+                                },
+                                legend: {
+                                    display: true,
+                                    labels: {
+                                        textAlign: 'left',
+                                    }
+                                }, datalabels: {
+                                    display: false,
+                                }
+                            }
+                        },
+
+                    });
+
+                    //=========================================
+                    new Chart(ctxMyChart3, {
+                        type: 'line',
+                        data: vm.dataMyChart3,
+                        options: {
+                            responsive: true,
+                            tension: 0.2,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function (value, index, ticks) {
+                                            return value + '千';
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    padding: 0,
+                                    //position: 'left',
+                                    text: '當月平均售價與成本',
+                                },
+                                legend: {
+                                    display: true,
+                                    labels: {
+                                        textAlign: 'left',
+                                    }
+                                }, datalabels: {
+                                    display: false,
+                                }
+                            }
+                        },
+
+                    });
+
+                }
+            }
+        });
+
+
+        const ctx4 = document.getElementById('myChart4');
+        const ctx5 = document.getElementById('myChart5');
+
+        new Chart(ctx4, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        new Chart(ctx5, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
