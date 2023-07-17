@@ -32,14 +32,70 @@
     </div>
     <div id="app" class="container-fluid">
         <div class="row">
-            <div class="col-xs-8">.col-sm-8</div>
-            <div class="col-xs-2">.col-sm-2</div>
-            <div class="col-xs-2">.col-sm-2</div>
+
+            <div class="col-xs-4" style="padding-left:2px;padding-right:2px;">
+                <div class="alert alert-success text-center" style="padding:3px; margin-bottom:3px;" role="alert">
+                    <h6>總銷量(噸)</h6>
+                    <h4 style="margin-top:6px">218,348</h4>
+                </div>
+            </div>
+            <div class="col-xs-4" style="padding-left:2px;padding-right:2px;">
+                <div class="alert alert-success text-center" style="padding:3px; margin-bottom:3px;" role="alert">
+                    <h6>總毛利(元)</h6>
+                    <h4 style="margin-top:6px">258.72百萬</h4>
+                </div>
+            </div>
+            <div class="col-xs-4" style="padding-left:2px;padding-right:2px;">
+                <div class="alert alert-success text-center" style="padding:3px; margin-bottom:3px;" role="alert">
+                    <h6>單位毛利(元/噸)</h6>
+                    <h4 style="margin-top:6px">1,185</h4>
+                </div>
+            </div>
+
         </div>
         <div class="row">
-            <div class="col-xs-8">.col-sm-8</div>
-            <div class="col-xs-2">.col-sm-2</div>
-            <div class="col-xs-2">.col-sm-2</div>
+
+            <div class="col-xs-4" style="padding-left:2px;padding-right:2px;">
+                <div class="alert alert-warning text-center" style="padding:3px; margin-bottom:3px;" role="alert">
+                    <h6>總銷量(噸)</h6>
+                    <h4 style="margin-top:6px">218,348</h4>
+                </div>
+            </div>
+            <div class="col-xs-4" style="padding-left:2px;padding-right:2px;">
+                <div class="alert alert-warning text-center" style="padding:3px; margin-bottom:3px;" role="alert">
+                    <h6>總毛利(元)</h6>
+                    <h4 style="margin-top:6px">258.72百萬</h4>
+                </div>
+            </div>
+            <div class="col-xs-4" style="padding-left:2px;padding-right:2px;">
+                <div class="alert alert-warning text-center" style="padding:3px; margin-bottom:3px;" role="alert">
+                    <h6>單位毛利(元/噸)</h6>
+                    <h4 style="margin-top:6px">1,185</h4>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-xs-4" style="margin:0;padding-left:2px;padding-right:2px;">
+                <div class="alert alert-danger text-center" style="padding:3px; margin-bottom:3px;" role="alert">
+                    <h6>總銷量(噸)</h6>
+                    <h4 style="margin-top:6px">218,348</h4>
+                </div>
+            </div>
+            <div class="col-xs-4" style="padding-left:2px;padding-right:2px;">
+                <div class="alert alert-danger text-center" style="padding:3px; margin-bottom:3px;" role="alert">
+                    <h6>總毛利(元)</h6>
+                    <h4 style="margin-top:6px">258.72百萬</h4>
+                </div>
+            </div>
+            <div class="col-xs-4" style="padding-left:2px;padding-right:2px;">
+                <div class="alert alert-danger text-center" style="padding:3px; margin-bottom:3px;" role="alert">
+                    <h6>單位毛利(元/噸)</h6>
+                    <h4 style="margin-top:6px">1,185</h4>
+                </div>
+            </div>
+
         </div>
 
         <canvas id="myChartBar" height="200" aria-label="銀行每月承做進出口金額(累計前五大)bar" role="img"></canvas>
@@ -132,15 +188,6 @@
                         borderColor: "#FF0000",
                         backgroundColor: "#FF0000"
 
-                    }, {
-                        label: '',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
-                        borderWidth: 1,
-                        borderColor: "#222222",
-                        backgroundColor: "#222222",
-                        point: {
-                            pointStyle: false
-                        }
                     }]
                 },
             },
@@ -264,7 +311,18 @@
                             responsive: true,
                             tension: 0.2,
                             scales: {
+
                                 y: {
+                                    grid: {
+                                        color: (context) => {
+                                            if (context.tick.value == 0) {
+                                                return 'rgba(0,0,255,0.6)';
+                                            } else {
+                                                return 'rgba(102,102,102,0.2)';
+                                            }
+                                        },
+                                        borderDash: [4, 2],
+                                    },
                                     ticks: {
                                         callback: function (value, index, ticks) {
                                             return value + '千';
@@ -306,6 +364,16 @@
                                         callback: function (value, index, ticks) {
                                             return value + '千';
                                         }
+                                    }, grid: {
+                                        drawBorder: true,
+                                        color: (context) => {
+                                            if (context.tick.value == 0) {
+                                                return 'rgba(0,0,255,0.6)';
+                                            } else {
+                                                return 'rgba(102,102,102,0.2)';
+                                            }
+                                        },
+                                        borderDash: [4, 2],
                                     }
                                 }
                             },
